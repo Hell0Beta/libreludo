@@ -6,16 +6,38 @@
  * lantern hooks overhang the tablet's top corners, which is what stops it reading as a plain card.
  */
 
+/*
+ * Three rows: an empty spacer, the tablet, and a second spacer that the footer shares.
+ *
+ * This is what puts the card on the true middle of the screen. A plain centring would sit it high
+ * by half the footer's height, because the footer is a sibling in the same column and takes space
+ * out of the bottom; giving the bottom spacer the *same* `1fr` as the top one cancels that exactly.
+ * The tablet's centre lands on the viewport's centre by the arithmetic, not by eye — and the `gap`
+ * cancels too, since there is one on each side of it.
+ *
+ * The `1fr` rows are `minmax(auto, 1fr)`, so on a viewport too short for the card they collapse to
+ * nothing and the page scrolls, rather than cropping the top of the card — the usual failure of a
+ * centred flex child.
+ */
 .page {
+  position: relative;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
   align-items: center;
   gap: var(--space-xl);
-  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  /*
+   * Vertical padding is symmetric, and that is load-bearing rather than tidy: the two `1fr` rows
+   * split the *content box*, so unequal padding would put the card off-centre by half the
+   * difference. The old value was `space-xl` top and `space-lg` bottom, which would have left it
+   * 8px low — small, but the whole point of the change is that it is centred on the nose.
+   */
+  padding: var(--space-xl) var(--space-lg);
 }
 
 .tablet {
+  grid-row: 2;
   position: relative;
   width: min(48rem, 100%);
   display: flex;
@@ -188,8 +210,20 @@
 /* ------------------------------------------------------------------ footer */
 
 .footer {
+  /*
+   * Row 3, hugging its bottom edge — which is the bottom of the page. `align-self` is needed
+   * because the grid centres its items, and centring the footer inside a whole `1fr` spacer would
+   * leave it floating in the middle of the empty band rather than resting at the foot of the screen.
+   */
+  grid-row: 3;
+  align-self: end;
   width: min(48rem, 100%);
-  margin-top: auto;
+  /*
+   * No `margin-top: auto` any more. It used to push the footer to the bottom of the column, back
+   * when the tablet sat directly under the top padding. The row it lives in now does that, so an
+   * auto margin here would have nothing left to claim — and would read as if the footer's position
+   * still depended on it.
+   */
   display: flex;
   flex-wrap: wrap;
   align-items: center;

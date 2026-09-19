@@ -36,6 +36,10 @@ Upstream stays upstream: bug reports about the original game belong
 original is — see [LICENSE](LICENSE). The **No Affiliation or Endorsement** section at the end of
 this file applies to this fork as much as to any other.
 
+> **The screenshots below are the upstream ones and show the old interface.** They have not been
+> regenerated for this fork's redesign, so treat them as a picture of where the game came from
+> rather than of what it looks like now.
+
 ---
 
 ## 🎮 Play LibreLudo
@@ -47,23 +51,15 @@ The menu's **Create Custom Room** opens a board and shows a QR code for phones.
 
 ## 📸 Screenshots
 
-<div align="center">
-  <img src=".github/assets/libreludo-homepage.jpg" alt="The start menu: a parchment tablet over the shrine courtyard, with Create Match, Create Custom Room, and a four-cell shrine code entry" width="100%" />
+<div align="center"> 
+  <img src=".github/assets/libreludo-homepage.jpg" alt="LibreLudo Homepage" width="100%" />
 </div>
 
 <br />
 
-|                                     Match Setup                                      |                                       The board                                        |
-| :----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-| <img src=".github/assets/libreludo-setup.jpg" alt="Match Setup: seat list beside the invite panel, whose QR code and passcode are ready for phones" width="100%"> | <img src=".github/assets/libreludo-play.jpg" alt="The tabletop: the board in its frame, with the spirit column down the left, player 1's pairing QR, and pins numbered 1 to 4" width="100%"> |
-
-<br />
-
-<div align="center">
-  <img src=".github/assets/libreludo-phone.jpg" alt="The phone controller: a die, a Roll button, and four pieces numbered 1 to 4 with where each one is" width="320" />
-</div>
-
-<p align="center"><sub>The phone controller — a die, a roll, and your four pieces. In the board shot, player 1's card carries the QR that puts this on your phone.</sub></p>
+|                               Game Setup                                |                                 Gameplay                                  |
+| :---------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| <img src=".github/assets/libreludo-setup.jpg" alt="Setup" width="100%"> | <img src=".github/assets/libreludo-play.jpg" alt="Gameplay" width="100%"> |
 
 ---
 
