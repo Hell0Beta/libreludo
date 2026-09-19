@@ -1,0 +1,137 @@
+/*
+ * The code-entry row. Unlike the two menu rows above it this is a *tool*, not a destination, so it
+ * is a recessed parchment panel with an inset well rather than a raised slab — the four cells sit
+ * in the well, and the gold Join slab is the only raised thing in it.
+ */
+.entry {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--parchment-dim);
+  box-shadow: inset 0 2px 8px rgba(34, 40, 49, 0.16);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  color: var(--crimson);
+
+  & > svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.cells {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.cell {
+  width: 2.4rem;
+  height: 2.8rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  background-color: var(--parchment-raised);
+  color: var(--bark);
+  font-family: var(--font-label);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+
+  &:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 111, 64, 0.28);
+  }
+}
+
+.join {
+  padding: 0.85rem 1.4rem;
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 6px;
+  border-radius: var(--radius);
+  background-color: var(--gold);
+  color: var(--bark);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-bottom-width 120ms ease,
+    background-color 150ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background-color: var(--amber);
+    outline: none;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(3px);
+    border-bottom-width: 3px;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 40rem) {
+  .entry {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    padding: var(--space-md);
+  }
+
+  /* The key glyph is decoration; on a phone the label and the cells say it better. */
+  .icon {
+    display: none;
+  }
+
+  .cells {
+    justify-content: space-between;
+  }
+
+  .cell {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .join {
+    width: 100%;
+  }
+}

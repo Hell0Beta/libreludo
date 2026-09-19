@@ -1,52 +1,131 @@
+/*
+ * One seat's dossier: a parchment card with its left edge carved in the player's colour.
+ *
+ * Sized in rem, not container-query units. The previous version leaned on `cqw`, which only
+ * resolves inside a container context the old setup screen happened to establish — carried into any
+ * other layout it falls back to the viewport and the row renders enormous.
+ */
+
 .player-input {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 0.5fr;
-  justify-content: space-evenly;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
+  gap: var(--space-md);
   width: 100%;
-  padding-inline: 0;
-}
-.player-input > * {
-  justify-self: center;
-  align-self: center;
-}
-.player-input-colour-dot {
-  width: 6.5cqw;
-  border-radius: 1000px;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  border: 1px solid black;
-}
-.bot-status-btn {
-  background-color: var(--color-primary);
-  width: 8.7cqw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 1.45cqw;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  cursor: pointer;
-  transition: background-color 200ms;
-}
-.bot-status-btn:hover,
-.bot-status-btn:active,
-.bot-status-btn:focus-visible {
-  background-color: var(--color-primary-hover);
-}
-.player-name-input {
-  padding: 2cqw 2.85cqw;
-  font-size: 3.6cqw;
-  border: 1px solid #ccc;
-  border-radius: 1.61cqw;
-  outline: none;
-  transition: border-color 200ms ease-in-out;
-  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  /* The carved edge is the seat's colour and is deliberately thicker than the other three sides. */
+  border: var(--stroke) solid var(--bark);
+  border-left: 0.55rem solid var(--seat-colour, var(--bark));
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  box-shadow: var(--lift-1);
 }
 
-.player-name-input:hover,
-.player-name-input:focus-visible {
-  border-color: #5b6ef5;
-  box-shadow: 0 0 0 2px rgba(91, 110, 245, 0.2);
+.player-input-colour-dot {
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--seat-colour, var(--bark));
+}
+
+.player-name-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+  border: var(--stroke) solid var(--outline-variant);
+  border-radius: var(--radius);
+  background-color: var(--parchment);
+  color: var(--bark);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+
+  &::placeholder {
+    color: var(--bark-soft);
+    font-weight: 400;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 111, 64, 0.2);
+  }
+}
+
+.bot-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 4px;
+  border-radius: var(--radius);
+  background-color: var(--parchment-dim);
+  color: var(--bark);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-bottom-width 120ms ease,
+    background-color 150ms ease;
+
+  & > svg {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--parchment-raised);
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+  }
+
+  /* A bot seat is inert — the board rolls for it — so it reads as set rather than as a live choice. */
+  &[aria-pressed='true'] {
+    background-color: var(--bark);
+    color: var(--parchment);
+  }
+}
+
+.bot-status-label {
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 40rem) {
+  .player-input {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+  }
+
+  .player-input-colour-dot {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  /* The word goes before the icon at this width — the icon alone is ambiguous. */
+  .bot-status-label {
+    display: none;
+  }
+
+  .bot-status-btn {
+    padding: 0.5rem;
+  }
 }

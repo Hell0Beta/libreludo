@@ -15,6 +15,9 @@ export default tseslint.config(
       'coverage/**',
       'public/**',
       '*.config.js',
+      // Local git worktrees are full copies of this repo; linting them just duplicates every
+      // error against stale code.
+      '.kilo/**',
     ],
   },
 
@@ -91,6 +94,18 @@ export default tseslint.config(
   {
     files: ['scripts/**/*.mjs'],
     ...tseslint.configs.disableTypeChecked,
+  },
+  {
+    // server/ is plain ESM JavaScript with no TypeScript project; keep it in the type-unaware
+    // config so `eslint .` lints it instead of failing to find it in a tsconfig.
+    files: ['server/**/*.{js,mjs}'],
+    ...tseslint.configs.disableTypeChecked,
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: globals.node,
+      parserOptions: { projectService: false },
+    },
   },
   {
     files: ['*.config.{js,ts}', 'vite.config.ts'],

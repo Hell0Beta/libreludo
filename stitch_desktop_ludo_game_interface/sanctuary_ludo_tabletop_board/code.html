@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sanctuary Ludo - Spirit Sanctuary</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#dfdac9",
+            "outline": "#70796f",
+            "tertiary": "#624500",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#eee8d7",
+            "surface-container-low": "#f9f3e2",
+            "surface": "#fff9e9",
+            "on-surface": "#1e1c12",
+            "tertiary-fixed-dim": "#f9bd3a",
+            "primary": "#11562a",
+            "primary-fixed": "#adf3b8",
+            "surface-container": "#f4eedd",
+            "surface-container-highest": "#e8e2d1",
+            "secondary": "#b81b34",
+            "surface-container-lowest": "#ffffff",
+            "background": "#fff9e9",
+            "on-surface-variant": "#404940",
+            "primary-container": "#2e6f40",
+            "outline-variant": "#c0c9bd"
+          },
+          fontFamily: {
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Epilogue"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-md": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    .board-cell {
+      border: 1px solid #222831;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .triangle-green {
+      clip-path: polygon(0% 0%, 50% 50%, 0% 100%);
+    }
+    .triangle-yellow {
+      clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
+    }
+    .triangle-blue {
+      clip-path: polygon(100% 0%, 100% 100%, 50% 50%);
+    }
+    .triangle-red {
+      clip-path: polygon(0% 100%, 100% 100%, 50% 50%);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 select-none relative overflow-x-hidden"><div class="fixed inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApeeGyU0KaCl9lVhYKUzv0gsggXnhQOrTPkoX8Z2cTG07njDx9sg58kziO6djkzrmDiKgUBCWdxYfUefuu49CG3pLDrsB8cG3o_gn1C_xHCYWPxyf0sJc1Q8gWcV6IEIbeMHWR6uQVl3Ql-1oRKR3vsORfSWbSfS03SEGhlzLxahB-Yv7GCPXgnGohZDrWumPBHJq7HGiM6sE_yZ2BOXHsXJv5m3j7m8s7mJ3E-JXR_CbdWqIJyeBG9eFRDcduGPB81w'); background-attachment: fixed;"></div><div class="absolute inset-0 bg-[#fff9e9]/75 backdrop-blur-[2px]"></div></div>
+<!-- Subtle Ambient Glows -->
+<div class="fixed -top-40 -left-40 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="fixed -bottom-40 -right-40 w-[500px] h-[500px] bg-tertiary-fixed-dim/15 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Header / Title -->
+<header class="text-center mb-4 sm:mb-6 z-10">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-container-high border border-outline-variant/60 text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant mb-2 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>&nbsp;thSacred Realm 15x15 Canvas
+    </div>
+<h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary flex items-center justify-center gap-3 drop-shadow-sm font-headline-lg">
+<span class="material-symbols-outlined text-3xl sm:text-4xl md:text-5xl text-primary">temple_buddhist</span>
+      Sanctuary Ludo
+    </h1>
+
+</header>
+<!-- Centered Classic 15x15 Ludo Board Tablet -->
+<div id="game-layout-container" class="w-full max-w-5xl mx-auto flex flex-col items-center justify-center gap-6 z-10"><div class="w-full flex justify-center order-first xl:order-none"><main class="w-full max-w-[650px] aspect-square bg-[#dfdac9] rounded-2xl p-2.5 sm:p-4 shadow-[0_20px_50px_rgba(34,40,49,0.3)] border-4 border-[#222831] relative z-10 flex items-center justify-center"><div class="w-full h-full grid grid-cols-[repeat(15,1fr)] grid-rows-[repeat(15,1fr)] bg-[#222831] p-[2px] rounded-lg shadow-inner"><div class="col-span-6 row-span-6 bg-[#008f39] p-3 sm:p-5 flex items-center justify-center border-2 border-[#222831]"><div class="w-full h-full bg-white rounded-2xl sm:rounded-3xl shadow-inner border-2 border-[#222831] grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 p-3 sm:p-5 place-items-center"><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#008f39] shadow-md border-2 border-white ring-2 ring-[#008f39]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">spa</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#008f39] shadow-md border-2 border-white ring-2 ring-[#008f39]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">spa</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#008f39] shadow-md border-2 border-white ring-2 ring-[#008f39]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">spa</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#008f39] shadow-md border-2 border-white ring-2 ring-[#008f39]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">spa</span></div></div></div><div class="col-span-3 row-span-6 grid grid-cols-3 grid-rows-6"><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-tertiary font-black text-sm sm:text-base">expand_more</span></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#ffd000]"></div><div class="board-cell bg-[#ffd000]"><span class="material-symbols-outlined text-[#222831] text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#222831] text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#ffd000]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#ffd000]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#ffd000]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#ffd000]"></div><div class="board-cell bg-[#fffdf5]"></div></div><div class="col-span-6 row-span-6 bg-[#ffd000] p-3 sm:p-5 flex items-center justify-center border-2 border-[#222831]"><div class="w-full h-full bg-white rounded-2xl sm:rounded-3xl shadow-inner border-2 border-[#222831] grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 p-3 sm:p-5 place-items-center"><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#ffd000] shadow-md border-2 border-white ring-2 ring-[#ffd000]/60 flex items-center justify-center"><span class="material-symbols-outlined text-[#624500] text-[16px] sm:text-[20px]">flare</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#ffd000] shadow-md border-2 border-white ring-2 ring-[#ffd000]/60 flex items-center justify-center"><span class="material-symbols-outlined text-[#624500] text-[16px] sm:text-[20px]">flare</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#ffd000] shadow-md border-2 border-white ring-2 ring-[#ffd000]/60 flex items-center justify-center"><span class="material-symbols-outlined text-[#624500] text-[16px] sm:text-[20px]">flare</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#ffd000] shadow-md border-2 border-white ring-2 ring-[#ffd000]/60 flex items-center justify-center"><span class="material-symbols-outlined text-[#624500] text-[16px] sm:text-[20px]">flare</span></div></div></div><div class="col-span-6 row-span-3 grid grid-cols-6 grid-rows-3"><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#008f39]"><span class="material-symbols-outlined text-white text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-primary font-black text-sm sm:text-base">chevron_right</span></div><div class="board-cell bg-[#008f39]"></div><div class="board-cell bg-[#008f39]"></div><div class="board-cell bg-[#008f39]"></div><div class="board-cell bg-[#008f39]"></div><div class="board-cell bg-[#008f39]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#222831] text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div></div><div class="col-span-3 row-span-3 relative border-2 border-[#222831] bg-[#222831] overflow-hidden"><div class="absolute inset-0 triangle-green bg-[#008f39]"></div><div class="absolute inset-0 triangle-yellow bg-[#ffd000]"></div><div class="absolute inset-0 triangle-blue bg-[#0066cc]"></div><div class="absolute inset-0 triangle-red bg-[#d62828]"></div><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-surface border-2 border-[#222831] flex items-center justify-center shadow-md"><span class="material-symbols-outlined text-tertiary text-xs sm:text-sm">flare</span></div></div></div><div class="col-span-6 row-span-3 grid grid-cols-6 grid-rows-3"><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#222831] text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#0066cc]"></div><div class="board-cell bg-[#0066cc]"></div><div class="board-cell bg-[#0066cc]"></div><div class="board-cell bg-[#0066cc]"></div><div class="board-cell bg-[#0066cc]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#0066cc] font-black text-sm sm:text-base">chevron_left</span></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#0066cc]"><span class="material-symbols-outlined text-white text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#fffdf5]"></div></div><div class="col-span-6 row-span-6 bg-[#d62828] p-3 sm:p-5 flex items-center justify-center border-2 border-[#222831]"><div class="w-full h-full bg-white rounded-2xl sm:rounded-3xl shadow-inner border-2 border-[#222831] grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 p-3 sm:p-5 place-items-center"><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#d62828] shadow-md border-2 border-white ring-2 ring-[#d62828]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">whatshot</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#d62828] shadow-md border-2 border-white ring-2 ring-[#d62828]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">whatshot</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#d62828] shadow-md border-2 border-white ring-2 ring-[#d62828]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">whatshot</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#d62828] shadow-md border-2 border-white ring-2 ring-[#d62828]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">whatshot</span></div></div></div><div class="col-span-3 row-span-6 grid grid-cols-3 grid-rows-6"><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#d62828]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#d62828]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#d62828]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#d62828]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#222831] text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#d62828]"><span class="material-symbols-outlined text-white text-xs sm:text-sm font-bold">star</span></div><div class="board-cell bg-[#d62828]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"></div><div class="board-cell bg-[#fffdf5]"><span class="material-symbols-outlined text-[#d62828] font-black text-sm sm:text-base">expand_less</span></div><div class="board-cell bg-[#fffdf5]"></div></div><div class="col-span-6 row-span-6 bg-[#0066cc] p-3 sm:p-5 flex items-center justify-center border-2 border-[#222831]"><div class="w-full h-full bg-white rounded-2xl sm:rounded-3xl shadow-inner border-2 border-[#222831] grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4 p-3 sm:p-5 place-items-center"><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#0066cc] shadow-md border-2 border-white ring-2 ring-[#0066cc]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">water_drop</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#0066cc] shadow-md border-2 border-white ring-2 ring-[#0066cc]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">water_drop</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#0066cc] shadow-md border-2 border-white ring-2 ring-[#0066cc]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">water_drop</span></div><div class="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#0066cc] shadow-md border-2 border-white ring-2 ring-[#0066cc]/50 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[16px] sm:text-[20px]">water_drop</span></div></div></div></div></main></div><footer class="w-full max-w-[650px] bg-[#dfdac9]/80 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border-2 border-[#222831] shadow-[0_10px_30px_rgba(34,40,49,0.15)] flex flex-col gap-2 select-none"><div class="flex items-center justify-between px-2 pb-1.5 border-b border-[#222831]/15 text-[11px] font-label-sm uppercase tracking-wider text-on-surface-variant font-bold"><span class="">Sanctuary Realm Spirits</span><div class="inline-flex items-center gap-1.5 text-xs text-primary font-bold"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="">4 / 4 Online</span></div></div><div class="grid grid-cols-2 sm:grid-cols-4 gap-2"><div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/90 border border-[#222831]/20 shadow-sm"><div class="relative flex-shrink-0"><div class="w-8 h-8 rounded-full bg-[#008f39] text-white flex items-center justify-center ring-2 ring-[#008f39]/40 shadow-sm"><span class="material-symbols-outlined text-[18px]">spa</span></div><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#008f39] ring-2 ring-white"></span></div><div class="min-w-0 flex-1"><div class="flex items-center gap-1"><span class="font-headline-lg font-bold text-xs text-[#1e1c12] truncate">Yuki-Mori</span></div><div class="flex items-center gap-1 text-[10px] text-on-surface-variant font-body-md"><span class="w-1.5 h-1.5 rounded-full bg-[#008f39]"></span><span class="truncate font-medium">Grove Green</span></div></div></div><div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/90 border border-[#222831]/20 shadow-sm"><div class="relative flex-shrink-0"><div class="w-8 h-8 rounded-full bg-[#ffd000] text-[#624500] flex items-center justify-center ring-2 ring-[#ffd000]/60 shadow-sm"><span class="material-symbols-outlined text-[18px]">flare</span></div><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#008f39] ring-2 ring-white"></span></div><div class="min-w-0 flex-1"><div class="flex items-center gap-1"><span class="font-headline-lg font-bold text-xs text-[#1e1c12] truncate">Kitsune</span></div><div class="flex items-center gap-1 text-[10px] text-on-surface-variant font-body-md"><span class="w-1.5 h-1.5 rounded-full bg-[#ffd000]"></span><span class="truncate font-medium">Solar Citadel</span></div></div></div><div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/90 border border-[#222831]/20 shadow-sm"><div class="relative flex-shrink-0"><div class="w-8 h-8 rounded-full bg-[#d62828] text-white flex items-center justify-center ring-2 ring-[#d62828]/40 shadow-sm"><span class="material-symbols-outlined text-[18px]">whatshot</span></div><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#008f39] ring-2 ring-white"></span></div><div class="min-w-0 flex-1"><div class="flex items-center gap-1"><span class="font-headline-lg font-bold text-xs text-[#1e1c12] truncate">Tanuki</span></div><div class="flex items-center gap-1 text-[10px] text-on-surface-variant font-body-md"><span class="w-1.5 h-1.5 rounded-full bg-[#d62828]"></span><span class="truncate font-medium">Ember Forge</span></div></div></div><div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/90 border border-[#222831]/20 shadow-sm"><div class="relative flex-shrink-0"><div class="w-8 h-8 rounded-full bg-[#0066cc] text-white flex items-center justify-center ring-2 ring-[#0066cc]/40 shadow-sm"><span class="material-symbols-outlined text-[18px]">water_drop</span></div><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#008f39] ring-2 ring-white"></span></div><div class="min-w-0 flex-1"><div class="flex items-center gap-1"><span class="font-headline-lg font-bold text-xs text-[#1e1c12] truncate">Kappa Sage</span></div><div class="flex items-center gap-1 text-[10px] text-on-surface-variant font-body-md"><span class="w-1.5 h-1.5 rounded-full bg-[#0066cc]"></span><span class="truncate font-medium">Deep Water</span></div></div></div></div></footer></div>
+
+
+
+
+
+
+</body></html>

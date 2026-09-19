@@ -11,7 +11,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@type': ['VideoGame', 'WebApplication'],
     name: 'LibreLudo',
-    url: 'https://libreludo.org/',
+    /*
+     * The fork's own repository, not `https://libreludo.org/`.
+     *
+     * `url` and `sameAs` are claims about *this* work, and pointing them at the upstream project
+     * told search engines and link previews that this is that site — which it is not, and which also
+     * buried the actual source of this version. Swap this for a custom domain if one is ever added;
+     * the repository is the only URL this fork is guaranteed to have.
+     */
+    url: 'https://github.com/hell0beta/libreludo',
+    alternateName: 'LibreLudo Sanctuary Edition',
     description:
       'Play Ludo free in your browser. Ad-free, open-source, with local multiplayer and bot opponents. No downloads, no logins, no tracking.',
     playMode: ['MultiPlayer', 'SinglePlayer'],
@@ -20,12 +29,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
     inLanguage: 'en',
     operatingSystem: 'Any',
     isAccessibleForFree: true,
-    sameAs: 'https://github.com/priyanshurav/libreludo',
+    sameAs: 'https://github.com/hell0beta/libreludo',
     license: 'https://www.gnu.org/licenses/agpl-3.0.html',
+    /*
+     * Both are named because both are true, and the distinction matters. `author` is the person who
+     * wrote the game; `contributor` is the fork that changed it. Crediting only the second would be
+     * taking someone's flowers, and crediting only the first would be claiming the changes are his.
+     */
     author: {
       '@type': 'Person',
       name: 'Priyanshu Rav',
       url: 'https://github.com/priyanshurav',
+    },
+    contributor: {
+      '@type': 'Person',
+      name: 'Hell0Beta',
+      url: 'https://github.com/hell0beta',
     },
   };
 
@@ -35,14 +54,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="canonical" href="https://libreludo.org/" />
+        <link rel="canonical" href="https://github.com/hell0beta/libreludo" />
         <meta
           name="description"
           content="Play Ludo free in your browser. Ad-free, open-source, with local multiplayer and bot opponents. No downloads, no logins, no tracking."
         />
 
         <meta name="theme-color" content="#7C5FFF" />
-        <meta name="apple-mobile-web-app-title" content="LibreLudo" />
+        <meta name="apple-mobile-web-app-title" content="LibreLudo Sanctuary" />
         <meta property="og:site_name" content="LibreLudo" />
 
         <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />

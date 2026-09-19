@@ -29,11 +29,15 @@ export const retrieveState = (currentState: RootState): TResult<RootState, Error
       isAnyTokenMoving: false,
       isGameEnded: false,
       playerFinishOrder: [],
+      pendingMove: null,
     },
     session: {
       ...data.session,
       gameInactiveTime: Date.now() - data.saveTime + data.session.gameInactiveTime,
     },
+    // Room state is never persisted; carry the live value through the hydration so loading a
+    // local save cannot clobber an in-progress room session.
+    room: { ...currentState.room },
   };
 
   for (const d of data.dice) {

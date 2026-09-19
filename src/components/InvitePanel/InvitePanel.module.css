@@ -1,0 +1,208 @@
+/*
+ * The invite panel: a raised parchment card in the two-column Match Setup layout, holding the QR
+ * seal, the passcode, and the live seat list. Sits on the same elevation tier as the menu slabs so
+ * it reads as another object on the table rather than a modal.
+ */
+/*
+ * Raised white, not parchment: on Match Setup this sits on a parchment sheet, so a parchment panel
+ * would vanish into it and read as an inactive placeholder rather than a live QR code.
+ */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--parchment-raised);
+  box-shadow: var(--lift-2);
+}
+
+.compact {
+  padding: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.title {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.pill {
+  padding: 0.2rem 0.6rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--parchment-dim);
+  color: var(--bark-soft);
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill-live {
+  background-color: var(--green);
+  color: var(--parchment);
+}
+
+.blurb {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--bark-soft);
+}
+
+/* ------------------------------------------------------------------- the seal */
+
+.code-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  box-shadow: inset 0 2px 8px rgba(34, 40, 49, 0.1);
+}
+
+.qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  background-color: #fff;
+}
+
+.qr-caption {
+  font-family: var(--font-label);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.code-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.code-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.code-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--green);
+}
+
+.code-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.small-btn {
+  padding: 0.35rem 0.7rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-sm);
+  background-color: var(--parchment);
+  color: var(--bark);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--parchment-dim);
+    outline: none;
+  }
+}
+
+/* ------------------------------------------------------------------ the seats */
+
+.seats {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.seat {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--parchment-raised);
+}
+
+.dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background-color: var(--seat-colour);
+  border: 1.5px solid var(--bark);
+}
+
+.seat-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.seat-state {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.seat-state-live {
+  color: var(--green);
+}
+
+.seat-state-away {
+  color: #92400e;
+}
+
+@media (max-width: 60rem) {
+  .code-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .qr-wrap {
+    align-self: center;
+  }
+}

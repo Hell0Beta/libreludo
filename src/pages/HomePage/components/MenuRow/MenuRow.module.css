@@ -1,0 +1,172 @@
+/*
+ * A menu row as a slab of cut stone: parchment or moss on top, a thicker dark edge beneath, and a
+ * 3px travel on press so it compresses into that edge. The edge is a border-bottom rather than a
+ * shadow because it must not blur — it is the *side* of the slab, not a cast shadow.
+ */
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 6px;
+  border-radius: var(--radius-lg);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  color: var(--bark);
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-bottom-width 120ms ease,
+    background-color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+  }
+
+  /* Press: the slab travels down and its edge flattens. Nothing else moves. */
+  &:active {
+    transform: translateY(3px);
+    border-bottom-width: 3px;
+  }
+}
+
+.primary {
+  background-color: var(--green);
+  color: var(--parchment);
+  box-shadow: var(--lift-2);
+
+  &:hover,
+  &:focus-visible {
+    background-color: #276035;
+    box-shadow: var(--lift-3);
+  }
+
+  .subtitle {
+    color: rgba(244, 238, 221, 0.82);
+  }
+
+  .badge {
+    background-color: rgba(244, 238, 221, 0.2);
+    color: var(--parchment);
+  }
+
+  .icon {
+    background-color: rgba(244, 238, 221, 0.16);
+    border-color: rgba(244, 238, 221, 0.4);
+  }
+}
+
+.plain {
+  /*
+   * Raised white, not parchment. The tablet these sit on is `--parchment`, so a parchment row is
+   * invisible as a row — it reads as flat, disabled filler next to the vivid moss one above it.
+   * Three distinct tiers is the point: courtyard, then the tablet, then the things you can press.
+   */
+  background-color: var(--parchment-raised);
+  box-shadow: var(--lift-1);
+
+  &:hover,
+  &:focus-visible {
+    background-color: #fff;
+    box-shadow: var(--lift-2);
+  }
+}
+
+.busy {
+  opacity: 0.72;
+  cursor: progress;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+
+  & > svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.title-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--bark);
+  color: var(--parchment);
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.subtitle {
+  color: var(--bark-soft);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.trailing {
+  display: grid;
+  place-items: center;
+
+  & > svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .row {
+    grid-template-columns: auto 1fr;
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  /* On a narrow screen the arrow is noise — the whole slab is the target. */
+  .trailing {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}

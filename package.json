@@ -4,6 +4,16 @@
   "version": "2.2.1",
   "type": "module",
   "license": "AGPL-3.0-only",
+  "description": "Ad-free, open-source Ludo with local multiplayer, bot opponents, and a room phones can join as controllers.",
+  "author": "Hell0Beta (https://github.com/hell0beta)",
+  "contributors": [
+    "Priyanshu Rav (https://github.com/priyanshurav) — original LibreLudo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hell0beta/libreludo.git"
+  },
+  "homepage": "https://github.com/hell0beta/libreludo",
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router build && shx cp build/client/404/index.html build/client/404.html",
@@ -11,6 +21,7 @@
     "preview": "wrangler pages dev ./build/client",
     "type-check": "tsc --noEmit --project ./tsconfig.app.json",
     "host": "react-router dev --host",
+    "server": "node server/index.js",
     "test": "vitest run --reporter verbose",
     "test:watch": "vitest --reporter verbose",
     "test:coverage": "vitest run --coverage"
@@ -23,13 +34,18 @@
     }
   },
   "dependencies": {
+    "@fontsource-variable/epilogue": "5.3.0",
     "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "5.3.0",
+    "@fontsource-variable/space-grotesk": "5.3.0",
     "@react-router/node": "^8.3.0",
     "@reduxjs/toolkit": "^2.12.0",
     "clsx": "^2.1.1",
+    "express": "^5.2.1",
     "framer-motion": "^12.42.2",
     "isbot": "^5.2.1",
     "lz-string": "^1.5.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.8",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.2.8",
@@ -37,6 +53,8 @@
     "react-router": "^8.3.0",
     "react-toastify": "^11.1.0",
     "react-tooltip": "^5.30.1",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
     "workbox-window": "^7.4.1",
     "zod": "^4.4.3"
   },

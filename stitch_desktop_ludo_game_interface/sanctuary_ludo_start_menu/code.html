@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Spirit Ludo Sanctuary - Ancient Grove Desktop Menu</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts required by design system -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,600;0,700;0,800;1,700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-dim": "#dfdac9",
+            "outline": "#70796f",
+            "tertiary": "#624500",
+            "on-tertiary-fixed-variant": "#5d4200",
+            "on-tertiary": "#ffffff",
+            "on-primary-container": "#aaefb4",
+            "on-tertiary-fixed": "#271900",
+            "on-secondary-fixed": "#40000a",
+            "surface-container-high": "#eee8d7",
+            "surface-container-low": "#f9f3e2",
+            "surface": "#fff9e9",
+            "on-surface": "#1e1c12",
+            "tertiary-fixed-dim": "#f9bd3a",
+            "on-secondary-fixed-variant": "#920022",
+            "primary": "#11562a",
+            "primary-fixed": "#adf3b8",
+            "error": "#ba1a1a",
+            "on-secondary-container": "#5b0012",
+            "on-error-container": "#93000a",
+            "surface-variant": "#e8e2d1",
+            "error-container": "#ffdad6",
+            "inverse-primary": "#92d69d",
+            "surface-container": "#f4eedd",
+            "surface-bright": "#fff9e9",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#00210b",
+            "primary-fixed-dim": "#92d69d",
+            "on-primary-fixed-variant": "#0a5226",
+            "on-background": "#1e1c12",
+            "inverse-on-surface": "#f6f0df",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e8e2d1",
+            "secondary-fixed-dim": "#ffb3b3",
+            "secondary": "#b81b34",
+            "inverse-surface": "#333125",
+            "outline-variant": "#c0c9bd",
+            "background": "#fff9e9",
+            "on-surface-variant": "#404940",
+            "primary-container": "#2e6f40",
+            "on-tertiary-container": "#ffda97",
+            "on-error": "#ffffff",
+            "surface-tint": "#296b3c",
+            "tertiary-container": "#805c00",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdad9",
+            "tertiary-fixed": "#ffdea5",
+            "secondary-container": "#ff5261"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Epilogue"],
+            "headline-md": ["Epilogue"],
+            "headline-lg": ["Epilogue"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Epilogue"],
+            "label-lg": ["Space Grotesk"],
+            "label-md": ["Space Grotesk"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Space Grotesk"],
+            "headline-sm": ["Epilogue"]
+          },
+          "fontSize": {
+            "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Tactile skeuomorphic stone & wood elevations */
+    .stone-plate {
+      box-shadow: 0 8px 24px rgba(34, 40, 49, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 2px solid #70796f;
+    }
+    .stone-button {
+      box-shadow: 0 6px 0 #271900, 0 10px 20px rgba(34, 40, 49, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: all 0.12s ease-out;
+    }
+    .stone-button:hover {
+      filter: brightness(1.04);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #271900, 0 14px 24px rgba(34, 40, 49, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    .stone-button:active {
+      transform: translateY(4px) !important;
+      box-shadow: 0 2px 0 #271900, 0 4px 8px rgba(34, 40, 49, 0.2), inset 0 1px 0 rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Ambient mystical forest light animation */
+    @keyframes pulseAura {
+      0%, 100% { box-shadow: 0 6px 0 #0a5226, 0 0 20px rgba(46, 111, 64, 0.45); }
+      50% { box-shadow: 0 6px 0 #0a5226, 0 0 32px rgba(235, 176, 45, 0.6); }
+    }
+    .emerald-pulse {
+      animation: pulseAura 3s infinite ease-in-out;
+    }
+
+    @keyframes bobGentle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .bobbing-spirit {
+      animation: bobGentle 3.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md select-none overflow-x-hidden antialiased">
+<!-- TOP APP BAR (Executed strictly from Shared Components JSON) -->
+
+<!-- MAIN VIEWPORT: Sanctuary Canvas with 3-Pane Tactical Desktop Layout -->
+<main class="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-8 relative">
+<!-- Atmospheric Ambient Background Illustration (Enchanted Forest Shrine) -->
+<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none"><img alt="Enchanted mossy grove sanctuary background" class="w-full h-full object-cover object-center filter saturate-100 contrast-100 brightness-[0.88] transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvhae_MVCuPpKyBYB6KksZaUOj_YKXXI0eafZZCjQKwhomhk0G4UNvC6JGgVrSPk_aj_QSTPN1JeeysAcT1MnIQHokQal8ZBAVdpwSP81YftM5hv-zg-YHrlSkJRKkeras6mPrynr16YeT7ykXBF_PEm57jm_LL16NmyWmBZaF_P9skAMT4L9xwSoptRfx6ZEdxAI64CGPrBBG8EfOXNoAJv3oXU0t_NG3I5Psi544HU5jNrgGI5gHNtTF6h7YNpn5ZQ"><div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent pointer-events-none"></div></div>
+<!-- UPPER ROW: Title Plaque & Welcome Sanctuary Ceremony -->
+<div class="w-full max-w-5xl relative py-4 mb-4"><div class="w-full relative px-6 sm:px-10 py-5 sm:py-6 bg-surface-container/95 backdrop-blur-md rounded-2xl border-2 border-outline/70 shadow-[0_16px_36px_rgba(27,28,24,0.32)] flex flex-col md:flex-row items-center justify-between gap-6"><div class="flex items-center gap-5"><div class="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-tertiary-fixed border-2 border-primary-fixed/50 shadow-md"><span class="material-symbols-outlined text-4xl sm:text-5xl fill-icon text-tertiary-fixed-dim" data-icon="temple_buddhist">temple_buddhist</span><span class="absolute -bottom-1.5 -right-1.5 w-7 h-7 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center border-2 border-surface shadow-sm"><span class="material-symbols-outlined text-base fill-icon" data-icon="casino">casino</span></span></div><div class="text-left"><div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined fill-icon text-tertiary-fixed-dim text-lg" data-icon="flare">flare</span><span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest font-bold">Spirits of the Ancient Grove</span><span class="material-symbols-outlined fill-icon text-tertiary-fixed-dim text-lg" data-icon="flare">flare</span></div><h1 class="font-display-lg text-3xl sm:text-4xl md:text-5xl text-primary font-extrabold tracking-tight drop-shadow-sm uppercase leading-none">SANCTUARY LUDO</h1><p class="font-body-sm text-body-sm text-on-surface-variant font-medium mt-1.5 flex items-center gap-2"><span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>Sacred Shrine Tabletop • 2-4 Spirits • Live Runes</p></div></div><div class="hidden md:flex items-center gap-3 bg-surface-container-high/90 px-4 py-2.5 rounded-xl border border-outline/40"><div class="text-right"><div class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Shrine Realm</div><div class="font-headline-sm text-sm font-bold text-on-surface">Mossy Hollow IV</div></div><span class="material-symbols-outlined text-3xl text-primary fill-icon" data-icon="forest">forest</span></div><span class="absolute -top-3 -left-3 bg-primary-container text-on-primary-container p-1.5 rounded-full border border-primary-fixed shadow-sm"><span class="material-symbols-outlined text-base block" data-icon="nature">nature</span></span><span class="absolute -top-3 -right-3 bg-primary-container text-on-primary-container p-1.5 rounded-full border border-primary-fixed shadow-sm"><span class="material-symbols-outlined text-base block" data-icon="eco">eco</span></span></div></div>
+<!-- CENTER 3-COLUMN PLAYING HUD / LOBBY EXPERIENCE -->
+<div class="w-full max-w-5xl flex flex-col items-start gap-4 mt-2"><div class="w-full max-w-2xl flex flex-col gap-3.5"><button class="stone-button emerald-pulse w-full bg-primary-container text-on-primary py-4 px-6 rounded-xl flex items-center justify-between border-2 border-[#1a4427] cursor-pointer text-left"><div class="flex items-center gap-4"><div class="w-13 h-13 sm:w-14 sm:h-14 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-inner border border-primary-fixed/40"><span class="material-symbols-outlined text-3xl fill-icon text-primary-fixed" data-icon="play_arrow">play_arrow</span></div><div><div class="font-headline-sm text-headline-sm font-bold tracking-tight text-white flex items-center gap-2">Create Match <span class="text-xs bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded-full font-label-sm uppercase font-extrabold">Quick Play</span></div><div class="font-body-sm text-body-sm text-on-primary-container font-medium mt-0.5">Play against wise spirit bots in a classic 4-corner grove showdown</div></div></div><span class="material-symbols-outlined text-2xl text-on-primary-container" data-icon="arrow_forward">arrow_forward</span></button><button class="stone-button w-full bg-surface-container/95 backdrop-blur-sm text-on-surface py-4 px-6 rounded-xl flex items-center justify-between border-2 border-outline/70 cursor-pointer text-left"><div class="flex items-center gap-4"><div class="w-13 h-13 sm:w-14 sm:h-14 rounded-xl bg-surface-container-high flex items-center justify-center text-tertiary border border-outline/50 shadow-inner"><span class="material-symbols-outlined text-2xl fill-icon" data-icon="cottage">cottage</span></div><div><div class="font-headline-sm text-headline-sm font-bold text-on-surface">Create Custom Room</div><div class="font-body-sm text-body-sm text-on-surface-variant font-medium mt-0.5">Set turn timers, spirit stakes, rule variations, and private invite seals</div></div></div><span class="material-symbols-outlined text-tertiary text-2xl" data-icon="tune">tune</span></button><div class="w-full bg-surface-container-high/95 backdrop-blur-sm rounded-xl p-4 sm:px-5 border-2 border-outline/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-md"><div class="flex items-center gap-3.5 flex-1"><div class="w-11 h-11 rounded-lg bg-surface-container flex items-center justify-center text-secondary border border-outline/40 shrink-0"><span class="material-symbols-outlined text-2xl" data-icon="key">key</span></div><div class="flex-1"><label class="block font-label-sm text-label-sm text-on-surface-variant font-bold mb-1" for="room-code-input">SHRINE CODE ENTRY</label><input class="w-full bg-surface border border-outline/50 rounded-lg px-3 py-2 font-label-md text-label-md uppercase tracking-wider text-on-surface placeholder:text-outline/70 focus:outline-none focus:border-primary shadow-inner" id="room-code-input" placeholder="Enter 6-Rune Code (e.g. OAK-772)" type="text"></div></div><button class="stone-button bg-tertiary-container text-on-tertiary px-6 py-2.5 rounded-lg font-label-md text-label-md font-bold self-stretch sm:self-end border border-tertiary cursor-pointer mt-1 sm:mt-0 flex items-center justify-center gap-1.5"><span class="">Join Shrine</span><span class="material-symbols-outlined text-base" data-icon="login">login</span></button></div></div></div>
+<!-- FOOTER CEREMONIAL DOCK: Quick Settings & Sanctuary Version -->
+
+</main>
+<!-- Interactive Micro-Interactions Script for Audio and Tactile Feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tactile stone button click sounds (visual pulse feedback)
+      const stoneButtons = document.querySelectorAll('.stone-button');
+      stoneButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.style.transform = 'translateY(4px)';
+          setTimeout(() => {
+            btn.style.transform = '';
+          }, 120);
+        });
+      });
+
+      // Quick room code validator uppercase formatter
+      const codeInput = document.getElementById('room-code-input');
+      if (codeInput) {
+        codeInput.addEventListener('input', (e) => {
+          e.target.value = e.target.value.toUpperCase();
+        });
+      }
+    });
+  </script>
+
+
+</body></html>

@@ -12,6 +12,7 @@ import playersReducer, {
   lockToken,
   markTokenAsReachedHome,
   registerNewPlayer,
+  requestTokenMove,
   resetNumberOfConsecutiveSix,
   setIsAnyTokenMoving,
   setPlayerSequence,
@@ -410,6 +411,29 @@ describe('Test players slice reducers', () => {
       const newState = playersReducer(initState, clearPlayersState());
 
       expect(newState).toEqual(initialState);
+    });
+  });
+  describe('requestTokenMove', () => {
+    it('should set pendingMove with a fresh timestamp for the requested colour and id', () => {
+      const before = Date.now();
+      const newState = playersReducer(
+        initialState,
+        requestTokenMove({ colour: 'blue', id: 2 })
+      );
+      expect(newState.pendingMove).not.toBeNull();
+      expect(newState.pendingMove?.colour).toBe('blue');
+      expect(newState.pendingMove?.id).toBe(2);
+      expect(newState.pendingMove?.timestamp).toBeGreaterThanOrEqual(before);
+    });
+    it('should replace a previous pending move', () => {
+      const first = playersReducer(initialState, requestTokenMove({ colour: 'blue', id: 0 }));
+      const second = playersReducer(first, requestTokenMove({ colour: 'red', id: 3 }));
+      expect(second.pendingMove?.colour).toBe('red');
+      expect(second.pendingMove?.id).toBe(3);
+    });
+    it('should be cleared by clearPlayersState', () => {
+      const state = playersReducer(initialState, requestTokenMove({ colour: 'blue', id: 1 }));
+      expect(playersReducer(state, clearPlayersState()).pendingMove).toBeNull();
     });
   });
 });

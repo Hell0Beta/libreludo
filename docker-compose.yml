@@ -1,0 +1,76 @@
+# LibreLudo over a Tailnet.
+#
+#   cp .env.example .env      # then put your TS_AUTHKEY in it
+#   docker compose up -d --build
+#   open https://libreludo.<your-tailnet>.ts.net
+#
+# `app` shares the tailscale container's network namespace, so the relay listens on the same
+# loopback tailscaled's `serve` handler dials. That is the whole trick: the app container is
+# never reachable from the host or the LAN, only from inside the tailnet, and only over HTTPS.
+#
+# Therefore: do NOT give `app` a `ports:` mapping. Publishing a port would bind it on the host
+# and expose the relay outside the tailnet, defeating the point. (The loopback-only publish on
+# `tailscale` below is a different thing — see the comment there.)
+#
+# Prerequisites in the Tailscale admin console (all three, or HTTPS will not come up):
+#   * MagicDNS enabled
+#   * HTTPS certificates enabled for the tailnet
+#   * an auth key (reusable or ephemeral) in TS_AUTHKEY
+# See docs/deploy.md.
+
+# Pinned so the project — and therefore the volume — is named the same wherever compose is run
+# from. Without it, running from a different directory spins up a SECOND stack with an empty
+# state volume, which silently registers a duplicate machine on the tailnet.
+name: libreludo
+
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: libreludo-tailscale
+    hostname: libreludo
+    environment:
+      # `:?` makes compose refuse to start with a readable message when the key is missing.
+      # Without it, the container comes up and quietly never authenticates — the node simply
+      # never appears, and the failure surfaces much later as a certificate error.
+      TS_AUTHKEY: ${TS_AUTHKEY:?set TS_AUTHKEY in .env — Tailscale admin console -> Settings -> Keys}
+      # State dir must persist, or the node re-authenticates on every restart.
+      TS_STATE_DIR: /var/lib/tailscale
+      # Book the node name explicitly, so MagicDNS resolves libreludo.<tailnet>.ts.net.
+      TS_HOSTNAME: libreludo
+      # containerboot reads this file, replaces the literal ${TS_CERT_DOMAIN} with the node's own
+      # FQDN, and applies it with the LocalAPI. It re-applies on file change.
+      TS_SERVE_CONFIG: /config/serve.json
+    volumes:
+      - ts-state:/var/lib/tailscale
+      - ./tailscale/serve.json:/config/serve.json:ro
+    cap_add:
+      - NET_ADMIN
+      # Tailscale uses raw sockets for path discovery and ICMP. NET_ADMIN alone leaves it
+      # degraded in ways that are hard to attribute later.
+      - NET_RAW
+    # NO `ports:` here, and that is deliberate.
+    #
+    # Cookbook publishes its app ports loopback-only so the host can smoke-test without a round
+    # trip through the tailnet. Copying that here fails outright: this host's 127.0.0.1:3000 is
+    # already held by Docker Desktop's own backend, so the publish aborts the whole stack with
+    # "Bind for 127.0.0.1:3000 failed: port is already allocated" — and nothing comes up at all.
+    #
+    # Nothing is lost. The relay is reachable inside the tailnet, which is the point of the
+    # sidecar, and `docker compose exec app node server/scripts/smoke.mjs` runs the smoke test
+    # from inside the namespace where the relay actually lives.
+    restart: unless-stopped
+
+  app:
+    build: .
+    # Shares the tailscale netns, so 127.0.0.1:3000 here is what serve.json proxies to.
+    network_mode: 'service:tailscale'
+    environment:
+      PORT: 3000
+    depends_on:
+      - tailscale
+    restart: unless-stopped
+
+volumes:
+  # Holds the node identity. Deleting it de-registers the machine and burns the node name; the
+  # auth key is needed again on the next start.
+  ts-state:

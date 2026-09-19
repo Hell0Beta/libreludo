@@ -1,0 +1,326 @@
+/*
+ * The phone controller. One column, thumb-sized, parchment on the courtyard.
+ *
+ * Everything here is a target first and a decoration second — this screen is used one-handed,
+ * standing up, in a room where the board is across the table. Nothing important is smaller than
+ * 3.4rem tall, and the only thing that glows is the die and the piece you can actually act on.
+ */
+
+.screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: auto 0;
+  padding: var(--space-lg);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-xl);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-3);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--green);
+}
+
+/* -------------------------------------------------------------------- header */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.seat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border: var(--stroke) solid var(--bark);
+  border-left: 0.5rem solid var(--seat-colour);
+  border-radius: var(--radius-full);
+  background-color: var(--parchment-raised);
+  font-weight: 700;
+  color: var(--bark);
+  overflow-wrap: anywhere;
+}
+
+.dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex: none;
+  border-radius: 50%;
+  background-color: var(--seat-colour);
+}
+
+.header-right {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.room-code {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.pill {
+  padding: 0.2rem 0.55rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--amber);
+  color: var(--bark);
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------- dice */
+
+.dice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-xl);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-2);
+}
+
+.roll-btn {
+  width: 100%;
+  max-width: 17rem;
+  min-height: 3.6rem;
+  padding: 0.9rem 1rem;
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 6px;
+  border-radius: var(--radius);
+  background-color: var(--green);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-bottom-width 120ms ease,
+    background-color 150ms ease;
+
+  &:not(:disabled):hover,
+  &:not(:disabled):focus-visible {
+    background-color: #276035;
+    outline: none;
+  }
+
+  &:not(:disabled):active {
+    transform: translateY(3px);
+    border-bottom-width: 3px;
+  }
+}
+
+/*
+ * Blocked is a *message*, not a greyed-out button. The label is the reason ("Waiting for Bob"), so
+ * it stays fully legible on parchment rather than fading out — a player should be able to read why
+ * they cannot roll without squinting at 40% opacity.
+ */
+.blocked {
+  border-color: var(--outline-variant);
+  border-bottom-width: var(--stroke);
+  background-color: var(--parchment-dim);
+  color: var(--bark-soft);
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------- pieces */
+
+.pieces {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.pieces-heading {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+}
+
+.hint {
+  min-height: 1.3rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--bark-soft);
+}
+
+/* ----------------------------------------------------------------- messages */
+
+.notice {
+  text-align: center;
+  color: var(--bark-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.offline,
+.warning {
+  padding: var(--space-sm) var(--space-md);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.offline {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.warning {
+  border-color: var(--error);
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+}
+
+.finished {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--green);
+}
+
+/* ------------------------------------------------------------------- footer */
+
+.primary-btn {
+  padding: 0.9rem 1.2rem;
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 6px;
+  border-radius: var(--radius);
+  background-color: var(--green);
+  color: var(--parchment);
+  font: inherit;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(3px);
+    border-bottom-width: 3px;
+  }
+}
+
+.leave-btn {
+  align-self: center;
+  margin-top: auto;
+  background: none;
+  border: none;
+  padding: 0.6rem;
+  color: var(--bark-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--green);
+    outline: none;
+  }
+}
+
+/* -------------------------------------------------------------------- modal */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background-color: rgba(15, 23, 42, 0.55);
+}
+
+.modal {
+  width: min(24rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-3);
+  text-align: center;
+
+  & h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--bark);
+  }
+
+  & p {
+    color: var(--bark-soft);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: var(--parchment-raised);
+  color: var(--bark);
+}
+
+.confirm-btn {
+  background-color: var(--red);
+  color: #fff;
+}

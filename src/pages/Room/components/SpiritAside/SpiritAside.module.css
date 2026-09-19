@@ -1,0 +1,182 @@
+/*
+ * The spirit column: a stack of parchment dossiers down the left of the tabletop.
+ *
+ * The active dossier lifts and takes an amber rim — that is the only thing on this screen competing
+ * with the board for attention, so it is the only thing that moves.
+ */
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-2);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.title {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark);
+}
+
+.online {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.warn {
+  padding: var(--space-sm);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-sm);
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.empty {
+  font-size: 0.85rem;
+  color: var(--bark-soft);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.dossier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--stroke) solid var(--bark);
+  border-left: 0.5rem solid var(--seat-colour, var(--bark));
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* The name row. The dossier itself is a column so a pairing QR can sit under it. */
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/*
+ * The pairing QR, inside the card for the seat this device owns.
+ *
+ * 104px is the floor for a comfortable scan at arm's length, which is why it is a fixed size rather
+ * than a percentage of a column that is only 20rem wide to begin with. The code is `level="M"` — the
+ * payload is a short URL, so there is headroom to spare.
+ */
+.pairing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: var(--stroke) dashed var(--outline-variant);
+}
+
+.pairing-hint {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--bark-soft);
+}
+
+.dossier-active {
+  transform: translateX(3px);
+  box-shadow:
+    var(--lift-1),
+    0 0 0 2px var(--amber),
+    0 0 14px var(--gold-glow);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--seat-colour);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
+}
+
+.name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--bark);
+  overflow-wrap: anywhere;
+}
+
+.role {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+/* A lamp: lit for connected, embers for away, dark for an unclaimed seat. */
+.state {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--bark);
+  background-color: var(--outline-variant);
+}
+
+.state-live {
+  background-color: var(--green);
+}
+
+.state-away {
+  background-color: var(--amber);
+}
+
+.finished {
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--green);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-align: center;
+}

@@ -1,0 +1,77 @@
+/*
+ * One piece, as a big target for a thumb.
+ *
+ * Four pieces, each a slab of the player's colour with the number and its place in words. The gold
+ * rim is the only accent on this screen and it means exactly one thing: this piece can move now.
+ * The first tap selects, the second commits, and the second tap lands where the finger already is.
+ */
+
+.token {
+  --active-gold: #ebb02d;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  /* Comfortably past the 44px minimum at any phone width. */
+  min-height: 5.5rem;
+  padding: 0.6rem 0.3rem;
+  border: var(--stroke) solid var(--bark);
+  border-top: 0.5rem solid var(--token-colour);
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease,
+    background-color 120ms ease;
+
+  &:disabled {
+    border-top-color: var(--outline-variant);
+    background-color: var(--parchment-dim);
+    cursor: not-allowed;
+    /* Dimmed, but not so far that the piece number becomes unreadable. */
+    opacity: 0.62;
+  }
+
+  &:not(:disabled):active {
+    transform: scale(0.97);
+  }
+}
+
+/* Movable right now. */
+.active {
+  border-color: var(--active-gold);
+  border-top-color: var(--token-colour);
+  box-shadow: 0 0 0 2px var(--active-gold);
+}
+
+/* Selected: the piece is armed, and the next tap on it commits the move. */
+.selected {
+  background-color: #fffbeb;
+  box-shadow:
+    0 0 0 3px var(--active-gold),
+    0 6px 18px rgba(235, 176, 45, 0.45);
+}
+
+.number {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--token-colour);
+}
+
+.place {
+  font-family: var(--font-label);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}

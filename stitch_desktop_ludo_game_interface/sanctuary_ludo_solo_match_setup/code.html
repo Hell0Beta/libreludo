@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sanctuary Ludo - Solo Match Setup</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#2e6f40",
+            "primary": "#11562a",
+            "surface-variant": "#e8e2d1",
+            "secondary": "#b81b34",
+            "on-tertiary-container": "#ffda97",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#92d69d",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#fff9e9",
+            "on-tertiary-fixed-variant": "#5d4200",
+            "on-secondary-fixed": "#40000a",
+            "on-primary-fixed-variant": "#0a5226",
+            "tertiary-fixed-dim": "#f9bd3a",
+            "error-container": "#ffdad6",
+            "surface-container": "#f4eedd",
+            "primary-fixed-dim": "#92d69d",
+            "on-error-container": "#93000a",
+            "tertiary": "#624500",
+            "outline": "#70796f",
+            "tertiary-fixed": "#ffdea5",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#296b3c",
+            "primary-fixed": "#adf3b8",
+            "background": "#fff9e9",
+            "surface": "#fff9e9",
+            "on-surface": "#1e1c12",
+            "surface-container-high": "#eee8d7",
+            "on-primary-container": "#aaefb4",
+            "surface-container-highest": "#e8e2d1",
+            "outline-variant": "#c0c9bd",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "inverse-on-surface": "#f6f0df",
+            "secondary-container": "#ff5261",
+            "secondary-fixed": "#ffdad9",
+            "on-background": "#1e1c12",
+            "on-primary-fixed": "#00210b",
+            "on-surface-variant": "#404940",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#271900",
+            "surface-dim": "#dfdac9",
+            "on-secondary-fixed-variant": "#920022",
+            "inverse-surface": "#333125",
+            "tertiary-container": "#805c00",
+            "surface-container-low": "#f9f3e2",
+            "on-secondary-container": "#5b0012",
+            "secondary-fixed-dim": "#ffb3b3"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            "display-lg": ["Epilogue"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Epilogue"],
+            "headline-lg": ["Epilogue"],
+            "headline-lg-mobile": ["Epilogue"],
+            "label-sm": ["Space Grotesk"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Space Grotesk"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Epilogue"],
+            "label-md": ["Space Grotesk"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    .stone-panel {
+      background-color: #f4eedd;
+      border: 1.5px solid rgba(34, 40, 49, 0.16);
+      box-shadow: 0 6px 20px rgba(34, 40, 49, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+    .stone-card {
+      background: #f9f3e2;
+      border: 1.5px solid #dfdac9;
+      box-shadow: 0 3px 10px rgba(34, 40, 49, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    .wood-plaque {
+      background: linear-gradient(180deg, #f4eedd 0%, #eee8d7 100%);
+      border: 1.5px solid #dfdac9;
+      box-shadow: 0 6px 18px rgba(34, 40, 49, 0.06);
+    }
+    .spirit-emerald-glow {
+      box-shadow: 0 6px 20px rgba(46, 111, 64, 0.32);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen relative flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- Subtle Forest Art Ambient Layer -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-20 mix-blend-multiply">
+<img alt="Woodland shrine background" class="w-full h-full object-cover object-center filter blur-[1px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjw4a_Ys7OaQ9gMuvym9gVXLhYDSfLTkTq69BS0GKoeycqTIx7nnBAP2GcAeUTKAvmxwLC5uEJFlG6P5waxqzZnmYWaHiQIsRezIP8dB_0OjPOM_REOVSW56lZlUN8aDf6N_a2jiZAyPrtoJplQpnmTk3w8m_nlaqETcTEQdgRFUwiudUJFelE1hoV_tvQGjHyQ4rNe-9hF9SZ_gbS8LFkdH9Mdn9QDXDsZjfj2wgqyY8I-MXHmlhixULQiyjK64Jgqw">
+</div>
+<div class="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-surface-bright/70 via-surface-bright/85 to-surface-bright/95"></div>
+<!-- Focused Top Header Bar -->
+<header class="relative z-10 w-full bg-surface-container/90 backdrop-blur-sm border-b border-outline/25 shadow-sm">
+
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+<!-- 2. Title Section -->
+<div class="relative w-full h-44 sm:h-56 md:h-64 rounded-xl overflow-hidden mb-6 border border-outline/25 shadow-md group stone-card"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1kxVxtSQj1dx7MqAXLJ2gMJt4_zZK_SEc2WnoH_RC34moK_Rvb4SJjdSS5tveQOUV_6wWuwyPcz4BAzb8oh4RSh7fAMwXgJgHDxnK0vTahNdZlB7Fz3rQ0rkhTJQPI6yyYKAHYPCX7aehE7hoLdJUFmb9eECYZWN4tSWz3Do4TIggLY47vdfjgkpYnObjOuUp9bNZnK6_S_6ojzwjELGFg1s35RN9n55PqSBT0HXbExLKPR4q0aFAOZA-0BIxdPL2Q" alt="Sacred Stone Board Sanctuary" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700"><div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent pointer-events-none"></div><div class="absolute top-3 left-3 bg-surface-container/90 backdrop-blur-sm border border-outline/30 px-3 py-1 rounded-full text-primary flex items-center gap-1.5 shadow-sm"><span class="material-symbols-outlined text-[16px]" data-icon="landscape">landscape</span><span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Shrine Arena View</span></div></div><div class="mb-8">
+<div class="flex items-center gap-2.5 mb-1.5">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed/60 px-2.5 py-0.5 rounded-full border border-tertiary-container/30 font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="forest">forest</span>
+          Elder Woods Conclave
+        </span>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">
+          Host: Yuki-Mori
+        </span>
+</div>
+<h1 class="text-[40px] leading-[48px] font-headline-lg font-extrabold text-on-surface tracking-tight">Match Setup
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+        Convene spirit travelers &amp; ancient automations around the sacred stone board.
+      </p>
+</div>
+<!-- Main Grid Composition (Seats & Dossiers on Left, Sanctum & Launch CTA on Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+<!-- LEFT COLUMN: Seats & Dossiers (7 Cols) -->
+<div class="lg:col-span-7 space-y-6">
+<!-- 4. Quadrant Seats & Players Card -->
+<section class="stone-panel rounded-xl p-5">
+<div class="flex items-center justify-between mb-3.5">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+                Quadrant Seats &amp; Players
+              </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Select active spirits to sit upon the four cardinal stone gates.</p>
+</div>
+<span class="font-label-md text-label-md px-2.5 py-1 bg-surface-container-high rounded-lg text-on-surface font-semibold border border-outline/20">
+              Classic 4-Gate
+            </span>
+</div>
+<!-- Segmented Control (Duel, Triangle, Sacred Cross) -->
+<div class="grid grid-cols-3 gap-2 bg-surface-container-highest/70 p-1.5 rounded-xl border border-outline/25">
+<button class="py-2 px-3 rounded-lg text-center font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60" type="button">
+<span class="flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_2">filter_2</span>
+                2 Players (Duel)
+              </span>
+</button>
+<button class="py-2 px-3 rounded-lg text-center font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60" type="button">
+<span class="flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_3">filter_3</span>
+                3 Players (Triangle)
+              </span>
+</button>
+<button class="py-2 px-3 rounded-lg text-center font-label-lg text-label-lg font-bold transition-all bg-primary-container text-on-primary shadow-sm flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_4">filter_4</span>
+              4 Players (Sacred Cross)
+            </button>
+</div>
+</section>
+<!-- 5. Quadrant Dossiers (Distinctly Color Coded & Icon Coded) -->
+<section class="space-y-3.5">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="shield">shield</span>
+              Spirit Quadrant Dossiers (4/4 Ready)
+            </h3>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]" data-icon="verified_user">verified_user</span>
+              Auto-balanced
+            </span>
+</div>
+<!-- SLOT 1: Grove Green (Host - Human Player) -->
+<div class="stone-card rounded-xl p-4 border-l-[6px] border-l-[#11562a] transition-all hover:shadow-md">
+<div class="flex items-center justify-between flex-wrap gap-3">
+<div class="flex items-center gap-3.5">
+<!-- Human Icon & Slot Badge -->
+<div class="relative w-12 h-12 rounded-xl bg-[#11562a]/15 border-2 border-[#11562a] flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[#11562a] text-[24px]" data-icon="face">face</span>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#11562a] rounded-full ring-2 ring-surface flex items-center justify-center text-[10px] text-on-primary font-bold">1</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Yuki-Mori (You)</h4>
+<span class="bg-[#11562a] text-on-primary text-[10px] font-bold font-label-sm px-2.5 py-0.5 rounded-full tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="person">person</span>
+                      HUMAN • YOU
+                    </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Grove Realm&nbsp;</p>
+</div>
+</div>
+<!-- State & Ready Toggle -->
+<div class="flex items-center gap-2.5">
+<span class="font-label-sm text-label-sm text-primary font-bold flex items-center gap-1 bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                  Ready to Awaken
+                </span>
+</div>
+</div>
+</div>
+<!-- SLOT 2: Solar Amber/Yellow (Bot Automaton) -->
+<div class="stone-card rounded-xl p-4 border-l-[6px] border-l-[#d97706] transition-all hover:shadow-md">
+<div class="flex items-center justify-between flex-wrap gap-3">
+<div class="flex items-center gap-3.5">
+<!-- Bot Mask / Automaton Icon & Slot Badge -->
+<div class="relative w-12 h-12 rounded-xl bg-[#d97706]/15 border-2 border-[#d97706] flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[#d97706] text-[24px]" data-icon="smart_toy">smart_toy</span>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#d97706] rounded-full ring-2 ring-surface flex items-center justify-center text-[10px] text-white font-bold">2</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Kitsune Lantern</h4>
+<span class="bg-[#fef3c7] text-[#92400e] border border-[#d97706]/30 text-[10px] font-bold font-label-sm px-2.5 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="smart_toy">smart_toy</span>
+                      BOT GUARDIAN
+                    </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Solar Citadel</p>
+</div>
+</div>
+<!-- Bot Difficulty Selector & Mode -->
+<div class="flex items-center gap-2">
+<select class="bg-surface-container font-label-md text-label-md font-bold text-on-surface rounded-lg border border-outline/30 px-3 py-1.5 focus:ring-primary focus:border-primary">
+<option selected="">Bot: Novice Kodama</option>
+<option>Bot: Wise Elder</option>
+<option>Bot: Grand Shaman</option>
+<option>Switch to Human Seat</option>
+</select>
+<span class="font-label-sm text-label-sm text-[#92400e] font-semibold bg-[#fef3c7] px-2 py-1 rounded-lg border border-[#d97706]/20">Ready</span>
+</div>
+</div>
+</div>
+<!-- SLOT 3: Ember Crimson/Red (Bot Automaton) -->
+<div class="stone-card rounded-xl p-4 border-l-[6px] border-l-[#b81b34] transition-all hover:shadow-md">
+<div class="flex items-center justify-between flex-wrap gap-3">
+<div class="flex items-center gap-3.5">
+<!-- Bot Mask / Automaton Icon & Slot Badge -->
+<div class="relative w-12 h-12 rounded-xl bg-[#b81b34]/15 border-2 border-[#b81b34] flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[#b81b34] text-[24px]" data-icon="smart_toy">smart_toy</span>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#b81b34] rounded-full ring-2 ring-surface flex items-center justify-center text-[10px] text-white font-bold">3</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Tanuki Blacksmith</h4>
+<span class="bg-[#fee2e2] text-[#991b1b] border border-[#b81b34]/30 text-[10px] font-bold font-label-sm px-2.5 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="smart_toy">smart_toy</span>
+                      BOT GUARDIAN
+                    </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ember Forge&nbsp;</p>
+</div>
+</div>
+<!-- Bot Difficulty Selector & Mode -->
+<div class="flex items-center gap-2">
+<select class="bg-surface-container font-label-md text-label-md font-bold text-on-surface rounded-lg border border-outline/30 px-3 py-1.5 focus:ring-primary focus:border-primary">
+<option>Bot: Novice Kodama</option>
+<option selected="">Bot: Wise Elder (Medium)</option>
+<option>Bot: Grand Shaman</option>
+<option>Switch to Human Seat</option>
+</select>
+<span class="font-label-sm text-label-sm text-[#991b1b] font-semibold bg-[#fee2e2] px-2 py-1 rounded-lg border border-[#b81b34]/20">Ready</span>
+</div>
+</div>
+</div>
+<!-- SLOT 4: Deep Water Azure Blue (Bot Automaton) -->
+<div class="stone-card rounded-xl p-4 border-l-[6px] border-l-[#1d4ed8] transition-all hover:shadow-md">
+<div class="flex items-center justify-between flex-wrap gap-3">
+<div class="flex items-center gap-3.5">
+<!-- Bot Mask / Automaton Icon & Slot Badge -->
+<div class="relative w-12 h-12 rounded-xl bg-[#1d4ed8]/15 border-2 border-[#1d4ed8] flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[#1d4ed8] text-[24px]" data-icon="smart_toy">smart_toy</span>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#1d4ed8] rounded-full ring-2 ring-surface flex items-center justify-center text-[10px] text-white font-bold">4</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Kappa River Sage</h4>
+<span class="bg-[#dbeafe] text-[#1e40af] border border-[#1d4ed8]/30 text-[10px] font-bold font-label-sm px-2.5 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="smart_toy">smart_toy</span>
+                      BOT GUARDIAN
+                    </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deep Water Sanctum&nbsp;</p>
+</div>
+</div>
+<!-- Bot Difficulty Selector & Mode -->
+<div class="flex items-center gap-2">
+<select class="bg-surface-container font-label-md text-label-md font-bold text-on-surface rounded-lg border border-outline/30 px-3 py-1.5 focus:ring-primary focus:border-primary">
+<option>Bot: Novice Kodama</option>
+<option>Bot: Wise Elder</option>
+<option selected="">Bot: Grand Shaman (Tactical)</option>
+<option>Switch to Human Seat</option>
+</select>
+<span class="font-label-sm text-label-sm text-[#1e40af] font-semibold bg-[#dbeafe] px-2 py-1 rounded-lg border border-[#1d4ed8]/20">Ready</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: Sanctum Card & Primary Launch Action (5 Cols) -->
+<div class="lg:col-span-5 space-y-6">
+<!-- 6. Cross-Play Sanctum Card -->
+<section class="wood-plaque rounded-xl p-6 relative overflow-hidden">
+<div class="flex items-center justify-between mb-3">
+<div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-widest text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="qr_code_2">qr_code_2</span>
+                Cross-Play Sanctum
+              </span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mt-0.5">Invite Companion Spirits</h3>
+</div>
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-1 rounded-full font-bold flex items-center gap-1.5 border border-primary/20">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+              Broadcasting
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-5">
+            Companions can join from their desktop to view the game and mobile to control their dice easily.</p>
+<!-- Stylized QR Code & Passcode Box -->
+<div class="flex flex-col sm:flex-row items-center gap-5 p-4 bg-surface-bright rounded-xl border border-outline/30 shadow-inner">
+<!-- Sacred Seal QR Graphic -->
+<div class="p-3 bg-surface-container-lowest rounded-xl border border-outline/30 shadow-xs shrink-0 flex flex-col items-center">
+<svg class="w-28 h-28 text-primary" fill="currentColor" viewBox="0 0 100 100">
+<rect fill="currentColor" height="26" rx="4" width="26" x="6" y="6"></rect>
+<rect fill="#ffffff" height="18" rx="2" width="18" x="10" y="10"></rect>
+<rect fill="currentColor" height="10" rx="2" width="10" x="14" y="14"></rect>
+<rect fill="currentColor" height="26" rx="4" width="26" x="68" y="6"></rect>
+<rect fill="#ffffff" height="18" rx="2" width="18" x="72" y="10"></rect>
+<rect fill="currentColor" height="10" rx="2" width="10" x="76" y="14"></rect>
+<rect fill="currentColor" height="26" rx="4" width="26" x="6" y="68"></rect>
+<rect fill="#ffffff" height="18" rx="2" width="18" x="10" y="72"></rect>
+<rect fill="currentColor" height="10" rx="2" width="10" x="14" y="76"></rect>
+<rect height="6" rx="1" width="6" x="38" y="8"></rect>
+<rect height="6" rx="1" width="14" x="48" y="8"></rect>
+<rect height="8" rx="1" width="8" x="38" y="20"></rect>
+<rect height="12" rx="1" width="8" x="52" y="20"></rect>
+<rect height="6" rx="1" width="12" x="8" y="38"></rect>
+<rect height="14" rx="1" width="6" x="8" y="48"></rect>
+<rect height="8" rx="1" width="8" x="20" y="44"></rect>
+<rect fill="#2e6f40" height="28" opacity="0.25" rx="3" width="28" x="36" y="36"></rect>
+<circle cx="50" cy="50" fill="#11562a" r="8"></circle>
+<circle cx="50" cy="50" fill="#ffffff" r="4"></circle>
+<rect height="6" rx="1" width="10" x="70" y="40"></rect>
+<rect height="16" rx="1" width="8" x="84" y="44"></rect>
+<rect height="8" rx="1" width="6" x="72" y="52"></rect>
+<rect height="18" rx="1" width="8" x="38" y="72"></rect>
+<rect height="10" rx="1" width="16" x="50" y="80"></rect>
+<rect height="6" rx="1" width="20" x="72" y="72"></rect>
+<rect height="8" rx="1" width="12" x="78" y="82"></rect>
+</svg>
+<span class="font-label-sm text-[9px] uppercase tracking-widest text-on-surface-variant mt-1.5 font-bold">Sacred Seal</span>
+</div>
+<!-- Passcode & Actions -->
+<div class="flex-1 space-y-3 w-full text-center sm:text-left">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Lobby Passcode</span>
+<div class="font-mono text-2xl font-extrabold tracking-wider text-primary mt-0.5">
+                  GROVE-4821
+                </div>
+</div>
+
+<div class="flex items-center gap-2 justify-center sm:justify-start pt-1">
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container font-label-md text-label-md font-bold text-on-surface border border-outline/30 hover:bg-surface-dim transition-all shadow-xs active:translate-y-[1px]" onclick="navigator.clipboard.writeText('GROVE-4821')" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="copy_all">copy_all</span>Passcode
+                </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container font-label-md text-label-md font-bold text-on-surface border border-outline/30 hover:bg-surface-dim transition-all active:translate-y-[1px]" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="share">share</span>
+                  Share
+                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Begin Solo Match Card / Primary CTA Action -->
+
+</div>
+</div>
+<div class="mt-8"><section class="stone-panel rounded-xl border-2 border-primary/30 p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-[24px]" data-icon="sports_esports">sports_esports</span></div><div><div class="font-headline-sm text-headline-sm font-bold text-on-surface">Conclave Ready</div><p class="font-body-sm text-body-sm text-on-surface-variant">All 4 guardian quadrant seats are prepared for invocation.</p></div></div><button class="w-full sm:w-auto inline-flex items-center justify-center gap-3 py-3.5 px-8 rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm font-bold shadow-lg hover:bg-primary-container transition-all active:translate-y-[2px] spirit-emerald-glow shrink-0" type="button"><span class="material-symbols-outlined text-[26px]" data-icon="play_arrow">play_arrow</span><span class="">Begin Match</span></button></section></div></main>
+
+
+
+
+
+
+</body></html>

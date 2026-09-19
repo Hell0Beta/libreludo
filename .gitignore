@@ -29,3 +29,8 @@ dist-ssr
 # Cloudflare
 .wrangler/
 .dev.vars
+
+# Local environment (TS_AUTHKEY for the tailscale sidecar, etc.)
+.env
+.env.*
+!.env.example

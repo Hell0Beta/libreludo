@@ -55,6 +55,35 @@ const reducers = {
   renewRollBag: (state: TDiceState, action: PayloadAction<TPlayerColour>) => {
     state.rollBag[action.payload] = generateRollBag();
   },
+
+  /**
+   * Pour a host's projected dice into the slice a **viewer's** board reads. See
+   * `mirrorProjectedPlayers` for why the frame is written into the game slices rather than read
+   * out of `roomSlice` by a second set of components.
+   *
+   * `rollBag` is left alone, and stays empty on a viewer. It is the host's private randomness — it
+   * is deliberately not on the wire, and a viewer never draws from it, because a roll there is an
+   * intent sent to the host rather than a number generated locally.
+   */
+  mirrorProjectedDice: (state: TDiceState, action: PayloadAction<TDice[]>) => {
+    const frame = action.payload;
+    const sameRoster =
+      state.dice.length === frame.length && state.dice.every((d, i) => d.colour === frame[i].colour);
+
+    if (!sameRoster) {
+      state.dice = frame.map((d) => ({ ...d }));
+      return;
+    }
+    // Field by field, for the reason given on `mirrorProjectedPlayers`: an assignment Immer can
+    // see is a change, whether or not the value differs.
+    for (let i = 0; i < frame.length; i++) {
+      const die = state.dice[i];
+      if (die.diceNumber !== frame[i].diceNumber) die.diceNumber = frame[i].diceNumber;
+      if (die.isPlaceholderShowing !== frame[i].isPlaceholderShowing)
+        die.isPlaceholderShowing = frame[i].isPlaceholderShowing;
+    }
+  },
+
   clearDiceState: () => initialState,
 };
 
@@ -69,6 +98,7 @@ export const {
   setDiceNumber,
   setIsPlaceholderShowing,
   renewRollBag,
+  mirrorProjectedDice,
   clearDiceState,
 } = diceSlice.actions;
 

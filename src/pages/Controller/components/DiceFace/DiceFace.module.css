@@ -1,0 +1,69 @@
+/*
+ * A carved die, at phone size. Polished stone rather than a flat white square: an inset well, a
+ * bark rim, and pips pressed into the face.
+ *
+ * All nine cells are always rendered so the die never changes size between faces — a face that
+ * reflowed with the number would make the whole screen jump twice a turn.
+ */
+
+.die {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.35rem;
+  width: 7.5rem;
+  height: 7.5rem;
+  padding: 0.9rem;
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-xl);
+  background-color: var(--parchment-raised);
+  box-shadow:
+    var(--lift-2),
+    inset 0 3px 10px rgba(34, 40, 49, 0.12);
+}
+
+.cell {
+  border-radius: 50%;
+}
+
+.pip {
+  background-color: var(--bark);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* Nothing rolled yet: hollow, so it reads as "a die waiting" rather than "a die showing 0". */
+.blank {
+  background-color: var(--parchment-dim);
+  box-shadow: inset 0 3px 10px rgba(34, 40, 49, 0.14);
+}
+
+.rolling .cell {
+  background-color: var(--outline-variant);
+  animation: pulse 700ms ease-in-out infinite;
+}
+
+/* Stagger the cells so the whole face shimmers rather than blinking as one block. */
+.rolling .cell:nth-child(2n) {
+  animation-delay: 120ms;
+}
+
+.rolling .cell:nth-child(3n) {
+  animation-delay: 240ms;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rolling .cell {
+    animation: none;
+    opacity: 0.6;
+  }
+}

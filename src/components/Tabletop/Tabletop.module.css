@@ -1,0 +1,208 @@
+/*
+ * The tabletop. Two columns: the spirit dossiers on the left, the board on the right.
+ *
+ * Shared by the host's `/room/:code` and a joiner's `/table/:code`. They are the same screen seen
+ * from two chairs — one drives the game, the other mirrors it — and the board between them is
+ * literally the same component, so the chrome around it is the same too. Two copies of this file
+ * would be two chances for the two tables to drift apart visually, which is exactly the drift the
+ * mirroring in `useProjectionMirror` exists to avoid.
+ *
+ * The board is never sized from this file. It gives itself `--board-side-length: 80vh` as both its
+ * width and its height and then derives `boardTileSize` from its own measured width, so anything
+ * that changes one dimension without the other turns it into a rectangle — and every token position
+ * is computed from that one number, so the error compounds down the board.
+ */
+
+.tabletop {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+/* -------------------------------------------------------------------- head */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.8rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--parchment);
+  color: var(--bark);
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  & > svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--green);
+}
+
+.status-line {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+/* ------------------------------------------------------------------ layout */
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 20rem minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+  width: min(84rem, 100%);
+  margin: 0 auto;
+}
+
+.aside {
+  position: sticky;
+  top: var(--space-md);
+}
+
+/* ------------------------------------------------------------------- board */
+
+.board-frame {
+  display: grid;
+  place-items: center;
+  /*
+   * Vertical padding is proportional to a board tile, not fixed.
+   *
+   * `Dice.module.css` positions each colour's dice `top: 100%` / `bottom: 100%` — deliberately
+   * *outside* the board, with a `board-tile-size * 1.5` footprint including the margin. With a flat
+   * 1rem of padding they spilled straight out of this card. A fixed larger value would look absurd
+   * around a small board, so it scales with the thing that determines the overflow.
+   *
+   * The board itself must stay square — see the note above about `--board-side-length`. Padding is
+   * vertical only, so it changes the card's height without touching the board's width, and the
+   * measured tile size it is derived from stays stable.
+   */
+  padding: calc(var(--board-tile-size, 2.5rem) * 1.75) var(--space-md);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-xl);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-3);
+
+  /*
+   * The board is deliberately **not** sized from here.
+   *
+   * `Board.module.css` gives it `--board-side-length: 80vh` as *both* its width and its height, and
+   * the board then derives `boardTileSize` from its own measured width — every token coordinate and
+   * every die size comes from that one number. Imposing a width from outside while the height stays
+   * `80vh` makes it a rectangle, and a rectangle against a square coordinate grid misplaces every
+   * piece further down the board than the last. That is not a subtle drift; it is cumulative.
+   *
+   * If this ever needs to be smaller, override `--board-side-length` *on the board element itself*
+   * with a single value — never a width without a matching height.
+   */
+}
+
+.note {
+  padding: var(--space-xl);
+  color: var(--bark-soft);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.foot {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+}
+
+/* --------------------------------------------------------------- responsive */
+
+/*
+ * Below this the two columns would squeeze the board more than the aside is worth, so the spirits
+ * move to the bottom — but as a **docked footer**, not a card that floats over the board.
+ *
+ * The distinction is not cosmetic. A rounded, shadowed, floating card at the bottom reads as
+ * something that has been dropped on top of the screen and could be dismissed; the same content
+ * squared off, spanning the full width and flush to the viewport edge reads as part of the frame.
+ * So the aside loses its radius and its side borders entirely and becomes a bar.
+ */
+@media (max-width: 64rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    order: 2;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    box-shadow: 0 -8px 24px rgba(34, 40, 49, 0.22);
+
+    /* A row of dossiers rather than a stack, so the bar stays short. */
+    & ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    & li {
+      flex: 1 1 12rem;
+    }
+  }
+
+  .board-frame {
+    order: 1;
+  }
+
+  /* Clears the docked bar, which is fixed and so takes no space in the flow. */
+  .tabletop {
+    padding-bottom: 11rem;
+  }
+
+  .foot {
+    display: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .tabletop {
+    padding: var(--space-md);
+    padding-bottom: 13rem;
+  }
+
+  .board-frame {
+    /* Horizontal only — the vertical padding is proportional and must survive this breakpoint,
+       or the dice spill out of the card again on exactly the screens most likely to be looked at. */
+    padding-inline: var(--space-sm);
+    border-radius: var(--radius-lg);
+  }
+}

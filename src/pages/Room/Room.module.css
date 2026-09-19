@@ -1,0 +1,22 @@
+/*
+ * Only what is specific to the *host's* table. Everything structural — the column widths, the
+ * parchment sheet, the docked spirit bar on narrow screens — lives in
+ * `components/Tabletop/Tabletop.module.css` and is shared with a joiner's table.
+ */
+
+.leave-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: var(--bark-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--green);
+    outline: none;
+  }
+}

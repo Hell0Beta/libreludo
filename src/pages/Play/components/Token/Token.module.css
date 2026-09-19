@@ -37,6 +37,50 @@
   transform: translate3d(0, 0, 0);
 }
 
+/*
+ * The pin's number.
+ *
+ * Sized from `--board-tile-size` rather than from the button, so it is a fixed number of pixels on
+ * a given board and does not shrink twice over — the button is already scaled by `scaleFactor` to
+ * fan pins out across a shared tile, and the badge then multiplies back by `--badge-scale`. Without
+ * that second step the four pins in a starting yard, which is exactly where a player looks after
+ * rolling a six, would carry four ~5px smudges.
+ *
+ * It sits on the pawn's **head** — a circle at 29% of the SVG's height, and the one part of the pin
+ * that is a solid disc of the player's colour. A white chip rather than a number drawn on the pawn,
+ * for two reasons: it stays legible over all four quadrant colours, and it keeps working for anyone
+ * who cannot separate red from green, which is the same argument the phone's piece buttons make
+ * (docs/phone-controllers.md §F).
+ */
+.number {
+  position: absolute;
+  top: 29%;
+  left: 50%;
+  /*
+   * Roughly one board tile in seven. Small enough that two pins fanned 0.36 of a tile apart do not
+   * run their numbers together; large enough to read at arm's length on a laptop.
+   */
+  width: max(0.75rem, calc(var(--board-tile-size, 2.5rem) * 0.26));
+  height: max(0.75rem, calc(var(--board-tile-size, 2.5rem) * 0.26));
+  /* `.token` is `z-index: 10` and the board image is behind it; the badge belongs on top of the
+     pawn, not beside it. */
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--parchment-raised);
+  color: var(--bark);
+  font-family: var(--font-display);
+  font-size: max(0.5rem, calc(var(--board-tile-size, 2.5rem) * 0.17));
+  font-weight: 800;
+  line-height: 1;
+  /* Nothing here is a target: the pin underneath is the button, and a click that lands on the badge
+     must still reach it. */
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(var(--badge-scale, 1));
+}
+
 @keyframes bounce {
   0%,
   100% {
@@ -44,5 +88,76 @@
   }
   50% {
     transform: translate3d(0, -8px, 0);
+  }
+}
+
+/*
+ * The piece a phone has selected and is about to move.
+ *
+ * A board token is only ~20x32px. At that size a ring or an outline traces a *rectangle around a
+ * pawn* rather than pointing at it, and a thin gold line is lost against the saturated quadrant
+ * colours underneath. So the highlight is a **halo** — a broad white-cored gold blob, several times
+ * the token's size, with the piece glowing on top of it. That reads at a glance from across a
+ * table, which is the distance this has to work at.
+ *
+ * It breathes rather than blinks: this can sit on screen for as long as a player takes to decide.
+ */
+.previewed {
+  /*
+   * `.token` is already `z-index: 10`. A highlight that sinks behind the piece it is pointing at is
+   * worse than no highlight, so this must go *up*, not down.
+   */
+  z-index: 30;
+}
+
+.previewed::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /*
+   * Sized to sit just over one board tile (~40px at a typical board size) — big enough to read as a
+   * spotlight from across a table, small enough that it does not swallow the neighbouring tile and
+   * hide a piece that is about to be captured.
+   */
+  width: 250%;
+  height: 175%;
+  border-radius: 50%;
+  /* White at the core so it reads over any quadrant, gold at the edge so it reads as the accent. */
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    var(--gold) 34%,
+    rgba(235, 176, 45, 0) 70%
+  );
+  /* Behind the piece, but inside the button's own stacking context — so it never falls behind the
+     board itself. */
+  z-index: -1;
+  pointer-events: none;
+  animation: preview-halo 1400ms ease-in-out infinite;
+}
+
+/* The pawn itself glows too, so the piece is lit rather than merely sitting in a spotlight. */
+.previewed .svg {
+  filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 7px var(--gold));
+}
+
+@keyframes preview-halo {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previewed::before {
+    animation: none;
+    opacity: 0.9;
+    transform: translate(-50%, -50%);
   }
 }

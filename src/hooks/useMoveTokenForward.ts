@@ -11,6 +11,31 @@ import { getGloballyUniqueTokenId } from '../game/tokens/logic';
 import { useCoordsToPosition } from './useCoordsToPosition';
 import { transitionStates } from '../game/tokens/constants';
 
+/**
+ * How long past the nominal animation to wait before giving up on a single step.
+ *
+ * A hidden tab throttles `requestAnimationFrame`, and framer-motion's `animate` then never
+ * resolves — which would leave `isAnyTokenMoving` true and wedge the turn forever. The race is a
+ * backstop: in a visible tab the animation always wins, so timing is unchanged.
+ */
+const MOVE_STEP_TIMEOUT_BUFFER_MS = 1200;
+
+function withTimeout(promise: Promise<unknown>, ms: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(resolve, ms);
+    promise.then(
+      () => {
+        clearTimeout(timer);
+        resolve();
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error instanceof Error ? error : new Error(String(error)));
+      }
+    );
+  });
+}
+
 export const useMoveTokenForward = () => {
   const dispatch = useDispatch<AppDispatch>();
   const updateTokenPositionAndAlignment = useUpdateTokenPositionAndAlignment();
@@ -34,7 +59,10 @@ export const useMoveTokenForward = () => {
         updateTokenPositionAndAlignment({ colour, id, newCoords: coord, direction: 'forward' });
         const updatedToken = getToken(store.getState().players, colour, id);
         const { x, y } = getPosition(coord, updatedToken.tokenAlignmentData);
-        await entry.animateTo(x, y, { duration: durationMs / 1000, ease: timingFn });
+        await withTimeout(
+          entry.animateTo(x, y, { duration: durationMs / 1000, ease: timingFn }),
+          durationMs + MOVE_STEP_TIMEOUT_BUFFER_MS
+        );
       }
       entry.setExternallyAnimating(false);
       dispatch(setIsAnyTokenMoving(false));

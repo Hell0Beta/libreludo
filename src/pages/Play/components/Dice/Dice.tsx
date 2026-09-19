@@ -5,19 +5,16 @@ import dice4 from '../../../../assets/dice/4.svg';
 import dice5 from '../../../../assets/dice/5.svg';
 import dice6 from '../../../../assets/dice/6.svg';
 import dicePlaceholder from '../../../../assets/dice/dice_placeholder.gif';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { type TPlayerColour } from '../../../../types';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../state/store';
 import { ERRORS } from '../../../../utils/errors';
 import { playerColours } from '../../../../game/players/constants';
-import { isAnyTokenActiveOfColour } from '../../../../game/tokens/logic';
+import { isDiceDisabled } from '../../../../game/guards';
 import styles from './Dice.module.css';
 import clsx from 'clsx';
-import { useRollDice } from '../../../../hooks/useRollDice';
-import { useHandlePostDiceRoll } from '../../../../hooks/useHandlePostDiceRoll';
-import { useChangeTurn } from '../../../../hooks/useChangeTurn';
-import { logError } from '../../../../utils/logError';
+import { useBoardActions } from '../../../../net/boardMode';
 
 type Props = {
   colour: TPlayerColour;
@@ -44,56 +41,43 @@ function getDiceImage(diceNumber: number | undefined): string {
 }
 
 export default function Dice({ colour, playerName }: Props) {
-  const {
-    isAnyTokenMoving,
-    isGameEnded,
-    currentPlayerColour: currentPlayer,
-    players,
-  } = useSelector((state: RootState) => state.players);
   const { diceNumber, isPlaceholderShowing } =
     useSelector((state: RootState) => state.dice.dice.find((d) => d.colour === colour)) ?? {};
+  const actions = useBoardActions();
+  /*
+   * The guard is shared with the host bridge so a controller's roll intent is refused under
+   * exactly the conditions that disable this button.
+   *
+   * The second clause is what a viewer adds. `isDiceDisabled` answers "may this colour roll *in the
+   * game*", which on a viewer is true for whoever's turn it is — including another player's die
+   * sitting on a board it is only watching. `canActFor` asks the different question, "may *this
+   * screen* act for them", and on the host it is unconditionally true, so hotseat is unaffected.
+   */
+  const diceDisabled =
+    useSelector((state: RootState) => isDiceDisabled(state, colour)) || !actions.canActFor(colour);
 
-  const anyTokenActive = useMemo(
-    () => isAnyTokenActiveOfColour(colour, players),
-    [colour, players]
-  );
-  const handlePostDiceRoll = useHandlePostDiceRoll();
-  const changeTurnFn = useChangeTurn();
-  const rollDice = useRollDice();
-  const isBot = players.find((p) => p.colour === colour)?.isBot;
-  const isCurrentPlayer = currentPlayer === colour;
-  const isDiceDisabled =
-    !isCurrentPlayer ||
-    anyTokenActive ||
-    isAnyTokenMoving ||
-    isGameEnded ||
-    isPlaceholderShowing ||
-    isBot;
-
-  const handleDiceClick = useCallback(async () => {
-    if (isDiceDisabled) return;
-    const diceNumber = await rollDice(colour);
-    const res = await handlePostDiceRoll(colour, diceNumber);
-    if (res?.shouldChangeTurn) changeTurnFn();
-  }, [colour, handlePostDiceRoll, isDiceDisabled, rollDice, changeTurnFn]);
+  const handleDiceClick = useCallback(() => {
+    if (diceDisabled) return;
+    actions.roll(colour);
+  }, [actions, colour, diceDisabled]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.repeat || e.key.toLowerCase() !== 'd' || isDiceDisabled) return;
-      handleDiceClick().catch(logError('Dice.handleKeyDown'));
+      if (e.repeat || e.key.toLowerCase() !== 'd' || diceDisabled) return;
+      handleDiceClick();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleDiceClick, isDiceDisabled]);
+  }, [handleDiceClick, diceDisabled]);
   return (
     <div className={clsx(styles.diceContainer, styles[colour])}>
       <button
         className={clsx(styles.dice, {
-          [styles.active]: !isDiceDisabled,
+          [styles.active]: !diceDisabled,
         })}
-        tabIndex={isDiceDisabled ? -1 : undefined}
-        title={!isDiceDisabled ? 'Roll Dice (Press D)' : undefined}
-        disabled={isDiceDisabled}
+        tabIndex={diceDisabled ? -1 : undefined}
+        title={!diceDisabled ? 'Roll Dice (Press D)' : undefined}
+        disabled={diceDisabled}
         style={{ '--player-colour': playerColours[colour] } as React.CSSProperties}
         type="button"
         onClick={handleDiceClick}

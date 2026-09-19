@@ -1,0 +1,30 @@
+/*
+ * A joiner's table. Same shell as the host's — see `components/Tabletop` — but a visibly different
+ * place to stand: the footer offers no control over the room, and the aside is a list of who else
+ * is here rather than a roster the reader owns.
+ */
+
+.leave-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: var(--bark-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--green);
+    outline: none;
+  }
+}
+
+.back-link {
+  padding: 0.5rem 1rem;
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: underline;
+}

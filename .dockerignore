@@ -1,0 +1,38 @@
+# Dependencies and build output — both are produced inside the image, and shipping the host's
+# copies would only risk a stale client bundle.
+node_modules
+**/node_modules
+build
+.react-router
+dist
+coverage
+
+# `.kilo` holds local git worktrees, which are complete copies of this repo.
+.kilo
+
+# Secrets. `TS_AUTHKEY` is consumed by the tailscale container via compose, never by the image.
+# `.dockerignore` has no negation-with-prefix rules for files inside copied directories, so the
+# pattern stays blunt on purpose.
+.env
+.env.*
+.dev.vars
+
+# VCS, editors, and local noise
+.git
+.gitignore
+.gitattributes
+.github
+.vscode
+.idea
+.DS_Store
+*.log
+logs
+.wrangler
+
+# Not needed to produce the client build
+docs
+.claude
+Dockerfile
+.dockerignore
+docker-compose.yml
+tailscale

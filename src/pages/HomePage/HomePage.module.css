@@ -1,224 +1,306 @@
-.page-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+/*
+ * The start menu: a carved parchment tablet standing in the courtyard.
+ *
+ * Layered rather than flat — the ground is the courtyard photograph, the tablet is a slab on top of
+ * it, and the menu rows are slabs on top of that. Three tiers, matching the elevation tokens. The
+ * lantern hooks overhang the tablet's top corners, which is what stops it reading as a plain card.
+ */
 
-  @media only screen and (max-width: 770px) {
-    font-size: 0.9rem;
-  }
-
-  @media only screen and (max-width: 650px) {
-    font-size: 0.8rem;
-  }
-
-  @media only screen and (max-width: 550px) {
-    font-size: 0.65rem;
-  }
-
-  @media only screen and (max-width: 470px) {
-    font-size: 0.55rem;
-  }
-
-  @media only screen and (max-width: 390px) {
-    font-size: 0.5rem;
-  }
-
-  @media only screen and (min-width: 1920px) {
-    font-size: 1.4rem;
-  }
-
-  @media only screen and (min-width: 2560px) {
-    font-size: 1.6rem;
-  }
-}
-
-.home-page {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  padding-inline: 1em;
+.page {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
 }
 
-.welcome {
-  text-align: center;
+.tablet {
+  position: relative;
+  width: min(48rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-xl);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-3);
+}
 
-  & h1 {
-    font-size: 4em;
-    margin-top: 1.5em;
-    margin-bottom: 0.3em;
+/* ---------------------------------------------------------------- lanterns */
 
-    & span {
-      color: var(--color-primary);
-    }
+.lantern {
+  position: absolute;
+  top: -0.9rem;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--green);
+  color: var(--amber);
+  box-shadow: var(--lift-1);
+
+  & > svg {
+    width: 1rem;
+    height: 1rem;
   }
+}
 
-  & p {
-    color: #535353;
+.lantern-left {
+  left: -0.55rem;
+}
+
+.lantern-right {
+  right: -0.55rem;
+}
+
+/* ---------------------------------------------------------------- wordmark */
+
+.wordmark {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.emblem {
+  display: grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  border: var(--stroke-heavy) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--green);
+  color: var(--amber);
+
+  & > svg {
+    width: 2.1rem;
+    height: 2.1rem;
   }
 }
 
-.cta-buttons {
-  margin-top: 4em;
-  margin-bottom: 1em;
+.wordmark-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
-.cta-button {
-  display: inline-block;
-  bottom: 0;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  font-size: 1.5em;
-  padding: 0.9em 0.8em;
-  box-shadow: 0 8px 32px rgba(68, 55, 255, 0.11);
-  border-radius: 0.7em;
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--bark-soft), transparent);
+  }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--green);
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: 0.85rem;
+  color: var(--bark-soft);
+}
+
+.stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--stroke) solid var(--outline-variant);
+  border-radius: var(--radius);
+  text-align: right;
+}
+
+.stamp-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+}
+
+.stamp-value {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------- rows */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.how-to {
+  align-self: center;
+  color: var(--bark-soft);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
-  cursor: pointer;
-  margin-inline: 0.7em;
-}
-
-.play-now-btn {
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
 
   &:hover,
-  &:active,
   &:focus-visible {
-    background-color: var(--color-primary-hover);
-    transform: translateY(-3px);
+    color: var(--green);
+    text-decoration: underline;
   }
 }
 
-.how-to-play-btn {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-
-  &:hover,
-  &:active,
-  &:focus-visible {
-    background-color: #e0e7ff;
-  }
+.error {
+  padding: var(--space-sm) var(--space-md);
+  border: var(--stroke) solid var(--error);
+  border-radius: var(--radius);
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
-.features {
-  max-width: 900px;
-  margin-top: 3em;
-  margin-bottom: 7em;
-  padding: 0 1.5em;
+/* ------------------------------------------------------------------ footer */
+
+.footer {
+  width: min(48rem, 100%);
+  margin-top: auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 2em;
-  justify-content: center;
-}
-
-.block {
-  flex: 1 1 350px;
-  text-align: left;
-  padding: 0.5em;
-
-  & h3 {
-    color: #5b5fc7;
-    margin-top: 0;
-    margin-bottom: 0.75em;
-    font-size: 1.25em;
-    font-weight: 600;
-  }
-
-  & p {
-    color: #535353;
-    line-height: 1.6;
-    margin: 0;
-    font-size: 1.05em;
-  }
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  flex-shrink: 0;
-  height: 4em;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-inline: 1.5em;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-lg);
+  background-color: var(--parchment);
+  box-shadow: var(--lift-1);
 }
 
-.text {
+/*
+ * The credit block: the original author's line, this fork's modification notice, and the licence
+ * line. A column so each reads as its own sentence — stacked into one run-on line, the §5(a) notice
+ * would stop being *prominent*, which is the whole requirement.
+ */
+.attribution {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  gap: 0.15rem;
 }
 
 .credits,
-.credits a {
-  text-decoration: none;
-  color: white;
-  font-size: 0.9em;
+.copyright {
+  font-size: 0.8rem;
+  color: var(--bark-soft);
+
+  & a {
+    color: var(--green);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-.credits a:hover {
-  text-decoration: underline;
-}
-
-.copyright,
-.copyright a {
-  font-size: 0.75em;
-  color: rgb(255, 255, 255, 0.8);
-  margin-top: 0.5em;
-  text-decoration: none;
-}
-
-.copyright a {
-  font-size: inherit;
-}
-
-.copyright a:hover {
-  text-decoration: underline;
+.copyright {
+  font-size: 0.72rem;
 }
 
 .footer-actions {
   display: flex;
-  gap: 1em;
+  gap: var(--space-sm);
+  margin-left: auto;
 }
 
 .icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: inherit;
-  width: 2.5em;
-  height: 2.5em;
-  border-radius: 0.65em;
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  background-color: var(--bark);
+  color: var(--parchment);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease;
 
   & > svg {
-    height: 1.35em;
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   &:hover,
-  &:active,
   &:focus-visible {
-    background: rgba(255, 255, 255, 0.2);
-    outline: 0.125em solid white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+    background-color: var(--green);
+    transform: translateY(-1px);
+    outline: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .page {
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-lg);
+  }
+
+  .tablet {
+    padding: var(--space-lg) var(--space-md) var(--space-md);
+  }
+
+  .wordmark {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-sm);
+  }
+
+  /* The version stamp is the first thing to go when space is tight. */
+  .stamp {
+    display: none;
+  }
+
+  .emblem {
+    width: 3.25rem;
+    height: 3.25rem;
+
+    & > svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  .footer {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-actions {
+    margin-left: 0;
   }
 }

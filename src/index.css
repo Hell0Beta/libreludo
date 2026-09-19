@@ -1,15 +1,153 @@
+/*
+ * Sanctuary Ludo — the design tokens everything else reads from.
+ *
+ * The palette, type scale, radii and shadows are transcribed from the design system the screens were
+ * drawn against (DESIGN.md, "Sanctuary Ludo"). Keep them here rather than in component modules:
+ * a colour that means "the active turn" or a shadow that means "this panel floats" has to be the
+ * same value everywhere or the illusion of physical materials collapses.
+ *
+ * "--color-primary" and "--color-primary-hover" are kept because existing components still
+ * reference them; they now point at moss rather than the old indigo.
+ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  /* ---------------------------------------------------------------- materials */
+  /* Sun-warmed granite, handmade washi: the base every panel is cut from. */
+  --parchment: #f4eedd;
+  --parchment-dim: #e8e2d1;
+  --parchment-raised: #ffffff;
+  /* Damp old-growth bark and chiselled slate: frames, strokes, primary text. */
+  --bark: #222831;
+  --bark-soft: #404940;
+
+  /* ------------------------------------------------------------ player realms */
+  /*
+   * The four Ludo colours. The *names* are load-bearing — they are the keys in
+   * "src/game/players/constants.ts", the board SVG's fill classes and the storage schema — so the
+   * design's realm names map onto the existing keys rather than replacing them:
+   *   blue -> Mystical Azure   (shrine brooks, mist)
+   *   red  -> Shrine Crimson   (torii gates, autumn maple)
+   *   green-> Moss Green       (grove spirits, vitality)
+   *   yellow-> Solar Yellow    (lantern light, spirit embers)
+   * Renaming the keys would ripple through the reducers, the save schema and the tests for no gain.
+   * "playerColours" in constants.ts holds the canonical values for the board; these are the UI's
+   * slightly-deeper variants for text and borders on parchment.
+   */
+  --blue: #1e6091;
+  --red: #d63447;
+  --green: #2e6f40;
+  --yellow: #ebb02d;
+
+  /* ------------------------------------------------------------------ accents */
+  /* The one accent that means "this is yours to act on". */
+  --gold: #ebb02d;
+  --gold-glow: rgba(235, 176, 45, 0.35);
+  /* Sanctuary-safe-zone amber, a shade cooler than the gold. */
+  --amber: #f9bd3a;
+
+  /* --------------------------------------------------------------- feedback */
+  --outline-variant: #c0c9bd;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  /* -------------------------------------------------------------------- type */
+  --font-display: 'Epilogue Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans Variable', 'Inter Variable', system-ui, sans-serif;
+  --font-label: 'Space Grotesk Variable', 'Inter Variable', system-ui, sans-serif;
+
+  --text-display: 3rem; /* 48px */
+  --text-headline: 2rem; /* 32px */
+  --text-headline-sm: 1.25rem; /* 20px */
+  --text-body: 0.9375rem; /* 15px */
+  --text-label: 0.875rem; /* 14px */
+
+  /* ------------------------------------------------------------------ spacing */
+  /* An 8pt baseline, per DESIGN.md §Layout. */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+
+  /* -------------------------------------------------------------------- shape */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* A hand-inked cel outline, not a hairline. */
+  --stroke: 2px;
+  --stroke-heavy: 2.5px;
+
+  /* --------------------------------------------------------------- elevation */
+  /*
+   * Three tiers of physical layering. Each pairs a directional earth shadow with a 1px inset
+   * highlight, because light in this world comes from warm sun above — without the inset the
+   * shadows read as flat CSS drops rather than thickness.
+   */
+  --lift-1: 0 3px 6px rgba(34, 40, 49, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --lift-2: 0 8px 24px rgba(34, 40, 49, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --lift-3:
+    0 16px 36px rgba(34, 40, 49, 0.4), 0 0 16px rgba(235, 176, 45, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  /* --------------------------------------------------------- compatibility */
+  /* Older components still name these; they now resolve to moss. */
+  --color-primary: var(--green);
+  --color-primary-hover: #245a34;
+}
+
 html,
 body {
   height: 100vh;
   max-width: 100vw;
-  background-color: #f8fafc;
-  font-family: 'Inter Variable', system-ui, sans-serif;
-  --color-primary: #4f46e5; /* Primary (Indigo-600) */
-  --color-primary-hover: #4338ca; /* Primary hover (Indigo-700) */
+  background-color: var(--parchment-dim);
+  color: var(--bark);
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * The courtyard the whole game sits in. Landscape art (1536x864) behind portrait screens crops to
+ * the middle stone path by default, which is the least interesting part of the picture — so phones
+ * bias the crop upward to keep the shrine and canopy in frame, and the scrim deepens to keep
+ * parchment panels legible over foliage.
+ */
+.app-ground {
+  background-image:
+    linear-gradient(rgba(244, 238, 221, 0.66), rgba(244, 238, 221, 0.66)),
+    url('./assets/backgrounds/arena.webp');
+  background-size: cover;
+  background-position: center;
+  /* Deliberately not "background-attachment: fixed": iOS Safari ignores it and repaints the whole
+     image on every scroll, which is worse than no parallax at all. */
+}
+
+@media (max-width: 767px) {
+  .app-ground {
+    background-position: center 35%;
+    background-image:
+      linear-gradient(rgba(244, 238, 221, 0.78), rgba(244, 238, 221, 0.78)),
+      url('./assets/backgrounds/arena.webp');
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

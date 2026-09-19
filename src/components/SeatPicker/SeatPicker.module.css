@@ -1,0 +1,107 @@
+/*
+ * The seat picker: big parchment tiles, one per player, sized to be hit with a thumb.
+ *
+ * A claimed seat is shown as taken rather than as an inviting tile that fails when tapped — the
+ * server refuses any seat that already holds a `seatToken`, even if its owner is currently offline,
+ * because that claim is what keeps a phone's seat alive across a lock screen.
+ */
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--bark);
+}
+
+.empty,
+.offline {
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--bark-soft);
+}
+
+.offline {
+  padding: var(--space-sm) var(--space-md);
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius);
+  background-color: #fef3c7;
+  color: #92400e;
+  text-align: left;
+}
+
+.tiles {
+  list-style: none;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.tile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.55rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
+  /* A thumb target, comfortably past 44px. */
+  min-height: 3.6rem;
+  padding: var(--space-md);
+  border: var(--stroke) solid var(--bark);
+  border-bottom-width: 5px;
+  border-radius: var(--radius-md);
+  background-color: var(--parchment-raised);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-bottom-width 120ms ease,
+    background-color 150ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    outline: none;
+    background-color: #fff;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(2px);
+    border-bottom-width: 3px;
+  }
+
+  &:disabled {
+    background-color: var(--parchment-dim);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.swatch {
+  width: 0.55rem;
+  align-self: stretch;
+  border-radius: var(--radius-full);
+  background-color: var(--seat-colour);
+}
+
+.name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--bark);
+  overflow-wrap: anywhere;
+}
+
+.state {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bark-soft);
+  white-space: nowrap;
+}
