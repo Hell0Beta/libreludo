@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import ShrineIcon from '../../assets/icons/shrine.svg?react';
 import type { RootState } from '../../state/store';
 import styles from './Tabletop.module.css';
-
 /**
  * The frame every table shares: a crowned header, a column of spirits down the left, a parchment
  * sheet holding the board, and a footer under it.
@@ -19,12 +18,16 @@ import styles from './Tabletop.module.css';
  */
 
 type Props = {
-  /** Room code, shown in the header. Null while a host is still creating one. */
+  /** Room code, shown in the header. Null for a local game, which has no room. */
   code: string | null;
-  /** Under the title — "Hosting", "Reconnecting to the relay…", and so on. */
+  /** Under the title — "Hosting", "Local match", and so on. */
   statusLine: string;
-  /** The spirit column. */
-  aside: ReactNode;
+  /**
+   * The spirit column, for a game with seats. **Omitted for a local hotseat**, which has players
+   * but no room: the column reads from the server's seat summaries, and there is no server. Without
+   * it the board spreads into a single centred column rather than sitting beside an empty 20rem gap.
+   */
+  aside?: ReactNode;
   /** What sits on the parchment sheet: a board, or a note about why there isn't one. */
   children: ReactNode;
   footer?: ReactNode;
@@ -53,13 +56,13 @@ export default function Tabletop({ code, statusLine, aside, children, footer, di
         </p>
       </header>
 
-      <div className={styles.layout}>
+      <div className={clsx(styles.layout, !aside && styles.layoutSolo)}>
         {/*
           * Wrapped rather than cloned: the sticky positioning and the docked-bar breakpoint below
           * are the frame's business, and a page that had to remember to pass the right `className`
           * into its aside would be a page that could get the layout wrong.
           */}
-        <div className={styles.aside}>{aside}</div>
+        {aside && <div className={styles.aside}>{aside}</div>}
 
         <div
           className={styles.boardFrame}

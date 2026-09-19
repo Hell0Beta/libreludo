@@ -39,7 +39,6 @@ function getRankImage(rank: number): string {
 }
 
 export default function GameFinishPlayerItem({ colour, isLast, name, rank }: Props) {
-  const { boardTileSize } = useSelector((state: RootState) => state.board);
   const { players } = useSelector((state: RootState) => state.players);
   const { gameStartTime, gameInactiveTime } = useSelector((state: RootState) => state.session);
   const { playerFinishTime } = players.find((p) => p.colour === colour) as TPlayer;
@@ -52,11 +51,8 @@ export default function GameFinishPlayerItem({ colour, isLast, name, rank }: Pro
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: rank * 0.1 }}
       >
-        {isLast ? (
-          <span />
-        ) : (
-          <img src={getRankImage(rank)} alt="Rank image" height={boardTileSize * 1.2} />
-        )}
+        {/* The runner-up gets no medal: only three ranks have one, and last place is not a rank. */}
+        {isLast ? <span /> : <img src={getRankImage(rank)} alt={`Rank ${rank}`} />}
         <span
           className={styles.playerColourDot}
           style={{ backgroundColor: playerColours[colour] }}

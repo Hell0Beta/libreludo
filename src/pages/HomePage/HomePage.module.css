@@ -21,7 +21,17 @@
  */
 .page {
   position: relative;
+  /*
+   * `dvh` after `vh`, so a browser that does not know the unit keeps the `vh` one.
+   *
+   * On a phone `vh` is the *large* viewport — the height the screen would have with the URL bar
+   * hidden — so a page sized to it is taller than what you can actually see, and the footer plus a
+   * band of nothing sit below the fold. `dvh` tracks the real, currently-visible height. The phone
+   * screens in this app already use it (`Join.module.css`); this page was desktop-first and did not
+   * need it until the menu became something you open on a phone.
+   */
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-rows: 1fr auto 1fr;
   justify-items: center;
@@ -300,13 +310,30 @@
 }
 
 @media (max-width: 40rem) {
+  /*
+   * Down here the card stops being centred and simply starts at the top.
+   *
+   * Centring earns its keep on a desktop, where the card is a tablet floating in a wide courtyard
+   * and the empty band above it reads as composition. On a phone the screen is the scarce thing:
+   * the same centring spends the height twice, pushing the card down off the top edge and leaving a
+   * second empty band under it, so the menu starts halfway down a screen it should have filled.
+   *
+   * Two rows instead of three — the top spacer is gone, and the lower one keeps the footer against
+   * the bottom of the screen rather than letting it ride up under the card on a tall phone.
+   */
   .page {
-    padding: var(--space-lg) var(--space-md);
-    gap: var(--space-lg);
+    grid-template-rows: auto 1fr;
+    padding: var(--space-md);
+    gap: var(--space-md);
   }
 
   .tablet {
+    grid-row: 1;
     padding: var(--space-lg) var(--space-md) var(--space-md);
+  }
+
+  .footer {
+    grid-row: 2;
   }
 
   .wordmark {

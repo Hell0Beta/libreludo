@@ -1,31 +1,49 @@
+/*
+ * Only what is specific to a local game.
+ *
+ * The courtyard ground, the crowned header and the parchment sheet the board sits on all come from
+ * `components/Tabletop`, which this screen shares with the host's table and a joiner's. That is the
+ * point: a local hotseat is a third way into the same game, and it should not be the one that looks
+ * like a different app.
+ */
+
 .game {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
 }
 
+/*
+ * `fixed`, not absolute, so it stays reachable when the page is taller than the viewport — which it
+ * is on a short screen, where the board's 80vh plus the header overflows. Previously this was sized
+ * from `--board-tile-size` and pinned to the board's own box; a fixed size is more predictable, and
+ * this button does not need to scale with the board to be findable.
+ */
 .exit-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: red;
-  color: white;
-  border: none;
-  aspect-ratio: 1 / 1;
-  height: calc(var(--board-tile-size) * 0.6);
-  width: auto;
-  font-size: calc(var(--board-tile-size) * 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: var(--stroke) solid var(--bark);
+  border-radius: var(--radius-full);
+  background-color: var(--parchment);
+  color: var(--bark);
+  font: inherit;
+  font-size: 1.15rem;
+  line-height: 1;
   cursor: pointer;
-  transition: background-color 200ms ease;
+  box-shadow: var(--lift-1);
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
 
   &:hover,
   &:focus-visible {
-    background-color: #dc0000;
+    background-color: var(--red);
+    color: #fff;
+    outline: none;
   }
 }

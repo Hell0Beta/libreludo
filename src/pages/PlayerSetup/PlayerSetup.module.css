@@ -98,7 +98,7 @@
   height: 2.4rem;
   border: var(--stroke) solid var(--bark);
   border-radius: var(--radius);
-  background-color: var(--parchment-raised);
+  background-color: var(--bark);
   color: var(--bark);
 
   & > svg {
@@ -108,7 +108,7 @@
 
   &:hover,
   &:focus-visible {
-    background-color: var(--parchment-dim);
+    background-color: var(--bark-soft);
     outline: none;
   }
 }

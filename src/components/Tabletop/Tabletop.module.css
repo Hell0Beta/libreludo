@@ -87,6 +87,15 @@
   top: var(--space-md);
 }
 
+/*
+ * No spirit column — a local game, which has players but no room and so no seats to report on.
+ * One centred column rather than the board sitting beside an empty 20rem gap, which is what the
+ * two-column grid would otherwise leave behind.
+ */
+.layout-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* ------------------------------------------------------------------- board */
 
 .board-frame {

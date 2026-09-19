@@ -5,10 +5,10 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { hydrateRootState, type AppDispatch, type RootState } from '../../../../state/store';
 import { registerDice } from '../../../../state/slices/diceSlice';
 import GameFinishedScreen from '../GameFinishedScreen/GameFinishedScreen';
+import Tabletop from '../../../../components/Tabletop/Tabletop';
 import type { TPlayerInitData } from '../../../../types';
 import { useBlocker, useNavigate } from 'react-router';
 import { playerCountToWord } from '../../../../game/players/logic';
-import bg from '../../../../assets/bg.jpg';
 import { addToGameInactiveTime, setGameStartTime } from '../../../../state/slices/sessionSlice';
 import styles from './Game.module.css';
 import { retrieveState } from '../../../../game/storage/retrieveState';
@@ -123,14 +123,21 @@ export default function Game({ initData }: Props) {
   return (
     <div
       className={styles.game}
-      style={
-        {
-          '--board-tile-size': `${boardTileSize}px`,
-          backgroundImage: `url(${bg})`,
-        } as React.CSSProperties
-      }
+      /*
+       * The board's own root declares this for everything it draws, but the exit button and the
+       * finish screen are siblings of the frame rather than children of it, so they need it too.
+       */
+      style={{ '--board-tile-size': `${boardTileSize}px` } as React.CSSProperties}
     >
-      <Board />
+      {/*
+       * The same shell the networked tables use — courtyard ground, crowned header, board on a
+       * parchment sheet. A local hotseat has no room, so it passes no code and no spirit column:
+       * that column reads from the server's seat summaries, and there is no server to ask.
+       */}
+      <Tabletop code={null} statusLine="Local match">
+        <Board />
+      </Tabletop>
+
       <button
         type="button"
         aria-label="Exit button"
@@ -139,6 +146,7 @@ export default function Game({ initData }: Props) {
       >
         &times;
       </button>
+
       {isGameEnded && <GameFinishedScreen playerFinishOrder={playerFinishOrder} />}
     </div>
   );

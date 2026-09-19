@@ -118,15 +118,15 @@ export default function HomePage() {
             variant="primary"
             icon={<PlayIcon />}
             title="Create Match"
-            badge="Quick Play"
+            badge="Local Play"
             subtitle="Take a corner against wise spirit bots on the sacred board"
             trailing={<ArrowIcon />}
             to="/setup"
           />
           <MenuRow
             icon={<SlidersIcon />}
-            title="Create Custom Room"
-            subtitle="Host on this device and invite phones to roll their own dice"
+            title="Create Multiplayer Room"
+            subtitle="Host on your tailnet and invite phones to roll their own dice"
             trailing={<ArrowIcon />}
             onClick={() => void handleCreateRoom()}
             busy={creating}

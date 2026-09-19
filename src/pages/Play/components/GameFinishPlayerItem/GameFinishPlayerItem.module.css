@@ -1,33 +1,51 @@
-.game-finish-player-item {
-  --padding: calc(var(--board-tile-size) * 0.3);
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr 1.5fr 0.5fr;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  padding: var(--padding) 0 var(--padding) 0;
+/*
+ * One row of the final standings.
+ *
+ * Sized in rem rather than from `--board-tile-size`. The dialog it sits in is now a fixed-width
+ * parchment slab rather than a box that grew with the board, so scaling the text with the board
+ * would have the rows outgrow their container on a large screen and shrink to nothing on a small
+ * one — the opposite of what a fixed-width dialog wants.
+ */
 
-  & > * {
-    justify-self: center;
-    align-self: center;
+.game-finish-player-item {
+  display: grid;
+  grid-template-columns: 1.6rem 1rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--outline-variant);
+
+  &:first-child {
+    border-top: none;
   }
 
   & .game-finish-player-name {
-    font-size: calc(var(--board-tile-size) * 0.65);
-    font-weight: 400;
-    word-break: break-all;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--bark);
+    text-align: left;
+    word-break: break-word;
   }
 
   & .game-finish-time {
-    font-size: calc(var(--board-tile-size) * 0.5);
-    font-weight: 400;
-    color: #5f5f5f;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--bark-soft);
   }
 
   & .player-colour-dot {
-    width: calc(var(--board-tile-size) * 0.55);
-    border: 1px solid black;
-    border-radius: 1000px;
+    width: 0.85rem;
     aspect-ratio: 1 / 1;
+    border: var(--stroke) solid var(--bark);
+    border-radius: var(--radius-full);
+  }
+
+  & img {
+    width: 1.6rem;
+    height: auto;
   }
 }
